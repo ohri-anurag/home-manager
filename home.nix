@@ -111,6 +111,10 @@ in
     yazi = import ./programs/yazi.nix;
   };
 
+  services = {
+    ssh-agent.enable = true;
+  };
+
   nixpkgs.config = {
     allowUnfree = true;
   };
