@@ -407,30 +407,37 @@
         })
       '';
     }
+    # Auto completion of pairs
+    auto-pairs
+    # Library for autocompletion support
     {
-      plugin = blink-pairs; # Bracket matching
-      type = "lua";
-      config = ''
-        require('blink.pairs').setup({
-          highlights = {
-            enabled = true,
-            groups = {
-              'BlinkPairsOrange',
-              'BlinkPairsPurple',
-              'BlinkPairsBlue',
-            },
-            matchparen = {
-              enabled = true,
-              group = 'MatchParen',
-            },
-          },
-        })
-      '';
+      plugin = pkgs.vimUtils.buildVimPlugin {
+        pname = "L9";
+        version = "2025-04-27";
+        src = pkgs.fetchFromGitHub {
+          owner = "vim-scripts";
+          repo = "L9";
+          rev = "c822b05ee0886f9a9703227dc85a6d47612c4bf1";
+          sha256 = "sha256-5cy7bfflLgv+1sG7ZPbSpmX2J/e+ZBomGWt0xVqC0rw=";
+        };
+        meta.homepage = "https://github.com/vim-scripts/L9";
+        meta.hydraPlatforms = [ ];
+      };
     }
+    # Autocompletion support for Neovim
     {
-      plugin = blink-cmp; # Autocompletion
-      type = "lua";
-      config = "require('blink.cmp').setup()";
+      plugin = pkgs.vimUtils.buildVimPlugin {
+        pname = "vim-autocomplpop";
+        version = "2025-04-27";
+        src = pkgs.fetchFromGitHub {
+          owner = "othree";
+          repo = "vim-autocomplpop";
+          rev = "5ceb2dfd368b36af029fabaed1bef3c5c4306d34";
+          sha256 = "sha256-7aVrA7bLodKuXruQJdVzc2v9CB8tInJWlcpG3B6XHo0=";
+        };
+        meta.homepage = "https://github.com/othree/vim-autocomplpop";
+        meta.hydraPlatforms = [ ];
+      };
     }
     {
       plugin = indent-blankline-nvim; # Indentation guides
@@ -478,7 +485,6 @@
         meta.homepage = "https://github.com/bluz71/vim-moonfly-colors/";
         meta.hydraPlatforms = [ ];
       };
-
       type = "lua";
       config = ''
         require('litee.gh').setup()
