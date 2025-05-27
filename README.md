@@ -7,5 +7,5 @@ This repository contains my personal Home Manager configuration, which is used t
 2. Clone this repositoy inside ~/.config
 3. Run the following command to switch to the new configuration:
 ```bash
-NIXPKGS_ALLOW_UNFREE=1 home-manager switch --impure
+home-manager switch --impure
 ````

@@ -225,11 +225,6 @@
       type = "lua";
       config = "vim.cmd('colorscheme moonfly')";
     }
-    # {
-    #   plugin = nightfox-nvim; # Color scheme
-    #   type = "lua";
-    #   config = "vim.cmd('colorscheme carbonfox')";
-    # }
     {
       plugin = nvim-web-devicons; # Icons for telescope/fzf-lua
       type = "lua";
