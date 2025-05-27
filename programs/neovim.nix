@@ -209,6 +209,7 @@
         })
       '';
     }
+    # Moonfly colorscheme
     {
       plugin = pkgs.vimUtils.buildVimPlugin {
         pname = "moonfly";
@@ -477,7 +478,7 @@
           rev = "ebbaac254ef7dd6f85b439825fbce82d0dc84515";
           sha256 = "sha256-5MWv/TpJSJfPY3y2dC1f2T/9sP4wn0kZ0Sed5OOFM5c=";
         };
-        meta.homepage = "https://github.com/bluz71/vim-moonfly-colors/";
+        meta.homepage = "https://github.com/ldelossa/gh.nvim";
         meta.hydraPlatforms = [ ];
       };
       type = "lua";
