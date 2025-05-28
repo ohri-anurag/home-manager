@@ -29,7 +29,10 @@ in
     homeDirectory = "/home/anuragohri92/";
 
     file = {
-      yubikey.source = builtins.fetchTarball "https://developers.yubico.com/yubioath-flutter/Releases/yubico-authenticator-latest-linux.tar.gz";
+      yubikey.source = builtins.fetchTarball {
+        url = "https://developers.yubico.com/yubioath-flutter/Releases/yubico-authenticator-latest-linux.tar.gz";
+        sha256 = "sha256:10l3ixgnalm04jvx22qs9mmysqk2iq64vkkadlk3di2lhln8n6kw";
+      };
     };
 
     # This value determines the Home Manager release that your
