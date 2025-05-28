@@ -98,9 +98,6 @@ in
         IdentityFile = "~/.ssh/id_ed25519";
       };
       matchBlocks = {
-        "*" = {
-          extraOptions.IgnoreUnknown = "gssapiauthentication";
-        };
         "*.trikeapps.com" = {
           user = "anurag";
         };
