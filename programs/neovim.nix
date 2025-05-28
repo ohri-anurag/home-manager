@@ -122,55 +122,6 @@
     vim.o.cursorline = true
     vim.o.cursorcolumn = true
 
-    local function reload_current_file()
-      -- Save the current cursor position
-      local cursor_pos = vim.api.nvim_win_get_cursor(0)
-
-      -- Save the current viewport (scroll position)
-      local view = vim.fn.winsaveview()
-
-      -- Reload the current file from disk
-      vim.cmd("edit!")
-
-      -- Get the total number of lines
-      local num_lines = vim.fn.line("$")
-
-      if cursor_pos[1] > num_lines then
-        cursor_pos[1] = num_lines
-      end
-
-      -- Restore the cursor position
-      vim.api.nvim_win_set_cursor(0, cursor_pos)
-
-      -- Restore the viewport (scroll position)
-      vim.fn.winrestview(view)
-    end
-
-    function create_format_on_save(file_regex, gen_command)
-      vim.api.nvim_create_autocmd("BufWritePost", {
-        pattern = file_regex,
-        callback = function(args)
-          vim.system(gen_command(args.file), function(event)
-            vim.schedule(function()
-              reload_current_file()
-            end)
-          end)
-        end,
-      })
-    end
-
-    create_format_on_save("*.dhall", function(file)
-      return { "dhall", "--unicode", "format", file }
-    end)
-
-    create_format_on_save("*.lua", function(file)
-      return { "stylua", "--indent-type", "Spaces", "--indent-width", "2", file }
-    end)
-
-    create_format_on_save("*.nix", function(file)
-      return { "nixfmt", file }
-    end)
-
     -- Comment settings for Dhall
     vim.api.nvim_exec(
       [[
@@ -178,11 +129,6 @@
     ]],
       false
     )
-
-    -- Source a local .nvimrc.lua file if it is present
-    if vim.fn.filereadable(".nvimrc.lua") == 1 then
-      vim.cmd("source .nvimrc.lua")
-    end
   '';
   plugins = with pkgs.vimPlugins; [
     {
@@ -225,6 +171,41 @@
       };
       type = "lua";
       config = "vim.cmd('colorscheme moonfly')";
+    }
+    {
+      plugin = conform-nvim; # Code formatter
+      type = "lua";
+      config = ''
+        require("conform").setup({
+          formatters = {
+            stree = {
+              command = "stree",
+              args = { "format", "--plugins=plugin/single_quotes", "--print-width=100", "$FILENAME" }
+            },
+            dhall_format = {
+              command = "dhall",
+              args = {  "--unicode", "format", "$FILENAME" },
+              stdin = false,
+            }
+          },
+          formatters_by_ft = {
+            lua = { "stylua" },
+            ruby = { "stree" },
+            typescript = { "prettier" },
+            css = { "prettier" },
+            json = { "prettier" },
+            javascript = { "prettier" },
+            markdown = { "prettier" },
+            html = { "prettier" },
+            elm = { "elm_format" },
+            nix = { "nixfmt" },
+            haskell = { "ormolu" },
+            cabal = { "cabal_fmt" },
+            dhall = { "dhall_format" },
+          },
+          format_on_save = {},
+        })
+      '';
     }
     {
       plugin = nvim-web-devicons; # Icons for telescope/fzf-lua
@@ -387,6 +368,7 @@
       '';
     }
     nvim-treesitter-parsers.haskell
+    nvim-treesitter-parsers.dhall
     {
       plugin = nvim-treesitter; # Syntax highlighting
       type = "lua";
