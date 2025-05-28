@@ -31,18 +31,6 @@
       rg -l -F $1 . | xargs sed -i s/$1/$2/g
     }
 
-    # If there is .bashenv.sh file in the directory where the terminal is started, this will load it.
-    if [ -f .bashenv.sh ]; then
-      source .bashenv.sh
-    fi
-    function cd() {
-      # If there is .bashenv.sh file in the directory being `cd`ed, this will load it.
-      builtin cd "$@" || return
-      if [ -f .bashenv.sh ]; then
-        source .bashenv.sh
-      fi
-    }
-
     TASKS_FILE=~/tasks.json
     function task() {
       DESC=$(gum input --placeholder "What needs doing?")
@@ -156,6 +144,83 @@
       https -q -a 4e5a3390c7dcf8a52dfaf0c6cf02a2b8:api_token PATCH \
         api.track.toggl.com/api/v9/workspaces/9258696/time_entries/"$TASK_ID"/stop
     }
+
+    rootDir="/home/anuragohri92/bellroy/haskell"
+
+    build() {
+      cd $rootDir
+      echo "optimization: False
+    program-options
+      ghc-options: -Wall" >cabal.project.local
+
+      { git ls-files --other --exclude-standard; git diff --name-only --diff-filter=d; } | grep .hs | xargs hlint -h .hlint.yaml && cabal --builddir=$rootDir/dist-newstyle build $1 && cabal --builddir=$rootDir/dist-newstyle test $1
+    }
+
+    cover() {
+      cd $rootDir
+      echo "optimization: False
+    program-options
+      ghc-options: -Wall
+    package *
+      coverage: True
+      library-coverage: True
+
+    package order-processing
+      coverage: False
+      library-coverage: False
+
+    " >cabal.project.local
+
+      cabal --builddir=$rootDir/dist-newstyle-cover build $1 && cabal --builddir=$rootDir/dist-newstyle-cover test $1
+    }
+
+    debug() {
+      cd "$rootDir" || exit
+      echo "optimization: False
+    program-options
+      ghc-options: -Wwarn -Wunused-top-binds -Werror=unused-top-binds" >cabal.project.local
+      cd $(dirname $(ls $(awk '/^packages:$/,/^program-options$/ {print $1}' cabal.project | head -n -1 | tail -n +2 | awk '{print $1"/*.cabal"}') | fzf -f "$1" | head -n 1)) || exit
+      if [[ $2 != "" ]]; then
+        target="$1:$2"
+      else
+        target=$1
+      fi
+      ghcid -c "cabal --builddir=$rootDir/dist-newstyle-debug repl $target" -o ghcid.txt
+
+    }
+
+    repl() {
+      cd "$rootDir" || exit
+      echo "optimization: False
+    program-options
+      ghc-options: -Wwarn -Wunused-top-binds -Werror=unused-top-binds" >cabal.project.local
+      cd $(dirname $(ls $(awk '/^packages:$/,/^program-options$/ {print $1}' cabal.project | head -n -1 | tail -n +2 | awk '{print $1"/*.cabal"}') | fzf -f "$1" | head -n 1)) || exit
+      if [[ $2 != "" ]]; then
+        target="$1:$2"
+      else
+        target=$1
+      fi
+      cabal --builddir=$rootDir/dist-newstyle-debug repl $target
+
+    }
+
+    buildToolsComplete() {
+      local cur_word type_list
+
+      # COMP_WORDS is an array of words in the current command line.
+      # COMP_CWORD is the index of the current word (the one the cursor is
+      # in). So COMP_WORDS[COMP_CWORD] is the current word
+      cur_word="''${COMP_WORDS[COMP_CWORD]}"
+      type_list=$(ls $(awk -v rootDir=$rootDir '/^packages:$/,/^program-options$/ {print rootDir"/"$1"/*.cabal"}' $rootDir/cabal.project | head -n -1 | tail -n +2) | awk -F"/" '{print $NF}' | awk -F"." '{print $1}')
+
+      # COMPREPLY is the array of possible completions, generated with
+      # the compgen builtin.
+      COMPREPLY=($(compgen -W "$type_list" -- "$cur_word"))
+      return 0
+    }
+
+    # Register buildToolsComplete to provide completion for the following commands
+    complete -F buildToolsComplete build cover debug repl
 
     export OPENAI_API_KEY="$(cat ~/.openaikey)"
   '';
