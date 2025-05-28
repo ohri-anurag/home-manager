@@ -6,7 +6,7 @@
   settings = {
     font-family = "Hasklug Nerd Font";
     font-size = 14;
-    fullscreen = true;
+    maximize = true;
     theme = "moonfly";
   };
   themes = {
