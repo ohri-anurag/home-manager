@@ -28,6 +28,10 @@ in
     username = "anuragohri92";
     homeDirectory = "/home/anuragohri92/";
 
+    file = {
+      yubikey.source = builtins.fetchTarball "https://developers.yubico.com/yubioath-flutter/Releases/yubico-authenticator-latest-linux.tar.gz";
+    };
+
     # This value determines the Home Manager release that your
     # configuration is compatible with. This helps avoid breakage
     # when a new Home Manager release introduces backwards
