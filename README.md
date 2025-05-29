@@ -9,4 +9,4 @@ This repository contains my personal Home Manager configuration, which is used t
 3. Run the following command to switch to the new configuration:
 ```bash
 home-manager switch
-````
+```
