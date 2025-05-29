@@ -8,5 +8,5 @@ This repository contains my personal Home Manager configuration, which is used t
 3. Install home manager. Visit the manual, and go to the flakes section to see how to do this.
 3. Run the following command to switch to the new configuration:
 ```bash
-home-manager switch --impure
+home-manager switch
 ````

@@ -18,7 +18,7 @@ let
   };
 in
 {
-  nixGL.packages = import nixgl { inherit pkgs; };
+  nixGL.packages = nixgl.packages;
   nixGL.defaultWrapper = "nvidia";
   nixGL.installScripts = [ "nvidia" ];
 
