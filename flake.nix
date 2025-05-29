@@ -8,7 +8,6 @@
       url = "github:nix-community/nixGL";
       inputs.nixpkgs.follows = "nixpkgs";
       flake = false;
-
     };
     home-manager = {
       url = "github:nix-community/home-manager/release-25.05";
@@ -37,7 +36,6 @@
             enableIntelX86Extensions = true;
             nvidiaVersion = "550.144.03";
             nvidiaHash = "sha256-akg44s2ybkwOBzZ6wNO895nVa1KG9o+iAb49PduIqsQ=";
-
           };
         in
         rec {

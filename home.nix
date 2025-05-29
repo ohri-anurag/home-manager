@@ -121,8 +121,4 @@ in
   services = {
     ssh-agent.enable = true;
   };
-
-  nixpkgs.config = {
-    allowUnfree = true;
-  };
 }
