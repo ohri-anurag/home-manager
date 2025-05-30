@@ -1,7 +1,0 @@
-{
-  "name": "claude-code",
-  "version": "0.2.39",
-  "dependencies": {
-    "@anthropic-ai/claude-code": "^1.0.3"
-  }
-}

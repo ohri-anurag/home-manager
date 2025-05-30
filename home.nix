@@ -4,19 +4,6 @@
   nixgl,
   ...
 }:
-let
-  claude-code = pkgs.buildNpmPackage {
-    pname = "claude-code";
-    version = "0.0.1";
-    src = ./claude-code;
-    npmDepsHash = "sha256-zG/g6lRtbx3terlb3nPyx9wg0bbjSScTyqOqh5jtFn0=";
-    dontNpmBuild = true;
-    postInstall = ''
-      mkdir -p "$out/bin"
-      ln -s "$out/lib/node_modules/claude-code/node_modules/@anthropic-ai/claude-code/cli.js" "$out/bin/claude"
-    '';
-  };
-in
 {
   nixGL.packages = nixgl.packages;
   nixGL.defaultWrapper = "nvidia";
@@ -45,32 +32,44 @@ in
     # changes in each release.
     stateVersion = "25.05";
 
-    packages = with pkgs; [
-      bat # Cat with wings
-      btop # System monitor
-      claude-code # Setup for claude code
-      cmus # Music player
-      difftastic # Semantic diff tool
-      fd # Faster find
-      gh # GitHub CLI
-      glow # CLI markdown renderer
-      gum # CLI Tool for making awesome bash scripts
-      haskellPackages.hasktags # Generate CTAGS for Haskell
-      httpie # CLI HTTP client
-      jq # CLI JSON processor
-      keepassxc # Password manager
-      nerd-fonts.hasklug # Hasklug Nerd Font
-      nicotine-plus # Client for Soulseek
-      nil # Nix language server
-      nixfmt-rfc-style # Nix formatter
-      node2nix # For generating flakes for node packages
-      nodePackages.nodejs # NodeJS
-      ouch # Zipping/Unzipping CLI tool
-      pavucontrol # PulseAudio volume control
-      ripgrep # Faster grep
-      stylua # Lua formatter
-      xclip # Clipboard manager
-    ];
+    packages =
+      let
+        # Setup for claude code
+        claude-code = pkgs.claude-code.overrideAttrs (_: rec {
+          version = "1.0.6";
+          src = pkgs.fetchzip {
+            url = "https://registry.npmjs.org/@anthropic-ai/claude-code/-/claude-code-${version}.tgz";
+            hash = "sha256-yMvx543OOClV/BSkM4/bzrbytL+98HAfp14Qk1m2le0=";
+          };
+        });
+      in
+      with pkgs;
+      [
+        bat # Cat with wings
+        btop # System monitor
+        claude-code
+        cmus # Music player
+        difftastic # Semantic diff tool
+        fd # Faster find
+        gh # GitHub CLI
+        glow # CLI markdown renderer
+        gum # CLI Tool for making awesome bash scripts
+        haskellPackages.hasktags # Generate CTAGS for Haskell
+        httpie # CLI HTTP client
+        jq # CLI JSON processor
+        keepassxc # Password manager
+        nerd-fonts.hasklug # Hasklug Nerd Font
+        nicotine-plus # Client for Soulseek
+        nil # Nix language server
+        nixfmt-rfc-style # Nix formatter
+        node2nix # For generating flakes for node packages
+        nodePackages.nodejs # NodeJS
+        ouch # Zipping/Unzipping CLI tool
+        pavucontrol # PulseAudio volume control
+        ripgrep # Faster grep
+        stylua # Lua formatter
+        xclip # Clipboard manager
+      ];
   };
 
   programs = {
