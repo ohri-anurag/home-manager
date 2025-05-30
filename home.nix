@@ -53,6 +53,7 @@ in
       difftastic # Semantic diff tool
       fd # Faster find
       gh # GitHub CLI
+      glow # CLI markdown renderer
       gum # CLI Tool for making awesome bash scripts
       haskellPackages.hasktags # Generate CTAGS for Haskell
       httpie # CLI HTTP client

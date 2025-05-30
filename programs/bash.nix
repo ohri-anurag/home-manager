@@ -1,6 +1,7 @@
 {
   enable = true;
   shellAliases = {
+    g = "glow -p -w 0";
     ga = "git add";
     gap = "git add --patch";
     gb = "git branch";
