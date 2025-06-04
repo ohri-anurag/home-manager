@@ -178,9 +178,9 @@
       config = ''
         require("conform").setup({
           formatters = {
-            stree = {
-              command = "stree",
-              args = { "format", "--plugins=plugin/single_quotes", "--print-width=100", "$FILENAME" }
+            syntax_tree = {
+              args = { "write", "--plugins=plugin/single_quotes", "--print-width=100", "$FILENAME" },
+              stdin = false,
             },
             dhall_format = {
               command = "dhall",
@@ -190,7 +190,7 @@
           },
           formatters_by_ft = {
             lua = { "stylua" },
-            ruby = { "stree" },
+            ruby = { "syntax_tree" },
             typescript = { "prettier" },
             css = { "prettier" },
             json = { "prettier" },
