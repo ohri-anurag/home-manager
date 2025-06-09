@@ -5,6 +5,8 @@
   extraLuaConfig = ''
     -- LSP keybindings
     vim.keymap.set("n", "<F12>", "<cmd>lua vim.lsp.buf.definition()<CR>")
+    vim.keymap.set("n", "<C-t>", "<cmd>lua vim.lsp.buf.references()<CR>")
+    vim.opt.completeopt={"menuone","popup","noinsert"}
 
     -- LSP Setup
     vim.lsp.config("typescript", {
