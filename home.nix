@@ -121,4 +121,9 @@
   services = {
     ssh-agent.enable = true;
   };
+
+  xdg.configFile = {
+    "git/allowedSigners".text =
+      "anurag.ohri@bellroy.com ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIB4L1Uado9BQOqZVhSebRRxGojB1gde2cnrMAlrUBDzB";
+  };
 }
