@@ -5,8 +5,8 @@
     ga = "git add";
     gap = "git add --patch";
     gb = "git branch";
-    gc = "git commit -S -m";
-    gca = "git commit -S --amend";
+    gc = "git commit -m";
+    gca = "git commit --amend";
     gcb = "git checkout -b";
     gd = "git diff";
     gdt = "git difftool -y";
@@ -15,7 +15,7 @@
     gp = "git push";
     gpf = "git push --force-with-lease";
     gpl = "git pull";
-    gplm = "git pull -S origin master";
+    gplm = "git pull origin master";
     gplr = "git pull --recurse-submodules";
     gpu = "git push --set-upstream origin '$(git symbolic-ref --short HEAD)'";
     grc = "git rebase --continue";
