@@ -2,6 +2,7 @@
   config,
   pkgs,
   nixgl,
+  lib,
   ...
 }:
 {
@@ -93,6 +94,10 @@
 
     # Let Home Manager install and manage itself.
     home-manager.enable = true;
+
+    mergiraf = import ./programs/mergiraf.nix {
+      inherit pkgs lib;
+    };
 
     neovim = import ./programs/neovim.nix {
       inherit pkgs;
