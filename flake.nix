@@ -31,6 +31,7 @@
           inherit system;
           config.allowUnfree = true;
         };
+        user = import ./programs/user.nix;
         nixGL =
           let
             nixgldefaultnix = import nixgl {
@@ -60,7 +61,7 @@
 
       in
       {
-        packages.homeConfigurations."anuragohri92" = home-manager.lib.homeManagerConfiguration {
+        packages.homeConfigurations.${user.username} = home-manager.lib.homeManagerConfiguration {
           inherit pkgs;
 
           # Specify your home configuration modules here, for example,
@@ -71,6 +72,7 @@
           # to pass through arguments to home.nix
           extraSpecialArgs = {
             nixgl = nixGL;
+            inherit user;
           };
         };
       }

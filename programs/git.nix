@@ -1,10 +1,11 @@
+{ user }:
 {
   difftastic = {
     enable = true;
   };
   enable = true;
   extraConfig = {
-    gpg.ssh.allowedSignersFile = "~/.config/git/allowedSigners";
+    gpg.ssh.allowedSignersFile = "${user.homeDirectory}/.config/git/allowedSigners";
     init = {
       defaultBranch = "main";
     };
@@ -24,9 +25,9 @@
   ];
   signing = {
     format = "ssh";
-    key = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIB4L1Uado9BQOqZVhSebRRxGojB1gde2cnrMAlrUBDzB anurag.ohri@bellroy.com";
+    key = user.bellroy.publicKey;
     signByDefault = true;
   };
-  userEmail = "anurag.ohri@bellroy.com";
-  userName = "Anurag Ohri";
+  userEmail = user.bellroy.email;
+  userName = user.name;
 }

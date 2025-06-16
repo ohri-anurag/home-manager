@@ -1,3 +1,4 @@
+{ user }:
 {
   enable = true;
   shellAliases = {
@@ -32,7 +33,7 @@
       rg -l -F $1 . | xargs sed -i s/$1/$2/g
     }
 
-    TASKS_FILE=~/tasks.json
+    TASKS_FILE=${user.homeDirectory}/tasks.json
     function task() {
       DESC=$(gum input --placeholder "What needs doing?")
       DUESTR=$(gum input --placeholder "When is it due?")
@@ -50,8 +51,8 @@
         echo "Need both description and due date"
         return
       fi
-      jq '. += ['"$TASK"'] | sort_by(.due | fromdate)' $TASKS_FILE > ~/tasks.json.tmp
-      mv ~/tasks.json.tmp $TASKS_FILE
+      jq '. += ['"$TASK"'] | sort_by(.due | fromdate)' $TASKS_FILE > ${user.homeDirectory}/tasks.json.tmp
+      mv ${user.homeDirectory}/tasks.json.tmp $TASKS_FILE
     }
 
     function tasks() {
@@ -80,12 +81,12 @@
         echo "Need an ID to mark a task as finished"
         return
       fi
-      jq 'map(select(.id != '$1'))' $TASKS_FILE > ~/tasks.json.tmp
-      mv ~/tasks.json.tmp $TASKS_FILE
+      jq 'map(select(.id != '$1'))' $TASKS_FILE > ${user.homeDirectory}/tasks.json.tmp
+      mv ${user.homeDirectory}/tasks.json.tmp $TASKS_FILE
     }
 
     function notify() {
-      ~/notify.sh
+      ${user.homeDirectory}/notify.sh
     }
 
     function start() {
@@ -128,7 +129,7 @@
         workspace_id:=9258696 \
         created_with="Anurag's bash script using HTTPie" \
         duration:=-1 \
-        project_id:=$PROJECT_ID | jq '.id' > ~/toggl_id
+        project_id:=$PROJECT_ID | jq '.id' > ${user.homeDirectory}/toggl_id
       if [[ $? -eq 0 ]]
       then
         echo "$(gum style \
@@ -141,12 +142,12 @@
     }
 
     function stop() {
-      TASK_ID=$(cat ~/toggl_id)
+      TASK_ID=$(cat ${user.homeDirectory}/toggl_id)
       https -q -a 4e5a3390c7dcf8a52dfaf0c6cf02a2b8:api_token PATCH \
         api.track.toggl.com/api/v9/workspaces/9258696/time_entries/"$TASK_ID"/stop
     }
 
-    rootDir="/home/anuragohri92/bellroy/haskell"
+    rootDir="${user.bellroy.rootDir}/haskell"
 
     build() {
       cd $rootDir
@@ -223,6 +224,6 @@
     # Register buildToolsComplete to provide completion for the following commands
     complete -F buildToolsComplete build cover debug repl
 
-    export OPENAI_API_KEY="$(cat ~/.openaikey)"
+    export OPENAI_API_KEY="$(cat ${user.homeDirectory}/.openaikey)"
   '';
 }

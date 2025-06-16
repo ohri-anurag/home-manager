@@ -3,6 +3,7 @@
   pkgs,
   nixgl,
   lib,
+  user,
   ...
 }:
 {
@@ -13,8 +14,7 @@
   home = {
     # Home Manager needs a bit of information about you and the
     # paths it should manage.
-    username = "anuragohri92";
-    homeDirectory = "/home/anuragohri92/";
+    inherit (user) username homeDirectory;
 
     file = {
       yubikey.source = builtins.fetchTarball {
@@ -72,7 +72,7 @@
   };
 
   programs = {
-    bash = import ./programs/bash.nix;
+    bash = import ./programs/bash.nix { inherit user; };
 
     # Environment switcher
     direnv = {
@@ -88,7 +88,7 @@
 
     ghostty = import ./programs/ghostty.nix { inherit config pkgs; };
 
-    git = import ./programs/git.nix;
+    git = import ./programs/git.nix { inherit user; };
 
     # Let Home Manager install and manage itself.
     home-manager.enable = true;
@@ -105,11 +105,11 @@
       addKeysToAgent = "yes";
       enable = true;
       extraOptionOverrides = {
-        IdentityFile = "~/.ssh/id_ed25519";
+        IdentityFile = user.bellroy.ssh.privateKeyPath;
       };
       matchBlocks = {
         "*.trikeapps.com" = {
-          user = "anurag";
+          inherit (user.bellroy.ssh) user;
         };
       };
       package = pkgs.openssh.override { withKerberos = true; };
@@ -126,7 +126,6 @@
   };
 
   xdg.configFile = {
-    "git/allowedSigners".text =
-      "anurag.ohri@bellroy.com ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIB4L1Uado9BQOqZVhSebRRxGojB1gde2cnrMAlrUBDzB";
+    "git/allowedSigners".text = "${user.bellroy.email} ${user.bellroy.publicKeyWithoutEmail}";
   };
 }
