@@ -21,6 +21,28 @@
         url = "https://developers.yubico.com/yubioath-flutter/Releases/yubico-authenticator-latest-linux.tar.gz";
         sha256 = "sha256:10l3ixgnalm04jvx22qs9mmysqk2iq64vkkadlk3di2lhln8n6kw";
       };
+
+      # This is needed in a separate file because crontab doesn't take my .bashrc into account
+      # I need to run this as a file, and not as a bash command
+      "notify.sh" = {
+        executable = true;
+        text = ''
+          TASKS_FILE=${user.homeDirectory}/tasks.json
+          if [[ -f $TASKS_FILE ]]
+          then
+            jq '.[]' -c $TASKS_FILE | while read task; do
+              DUE=$(date +%s -d "$(echo $task | jq -r '.due')")
+              if [[ $(date -u +%s) -gt $DUE ]]
+              then
+                DESC=$(echo $task | jq -r '.desc')
+                ID=$(echo $task | jq -r '.id')
+                XDG_RUNTIME_DIR=/run/user/$(id -u) notify-send --app-name "TODO" -t 0 "Task due: $ID" "$DESC"
+                XDG_RUNTIME_DIR=/run/user/$(id -u) paplay /usr/share/sounds/freedesktop/stereo/complete.oga
+              fi
+            done
+          fi
+        '';
+      };
     };
 
     # This value determines the Home Manager release that your
