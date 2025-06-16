@@ -63,8 +63,6 @@
         nicotine-plus # Client for Soulseek
         nil # Nix language server
         nixfmt-rfc-style # Nix formatter
-        node2nix # For generating flakes for node packages
-        nodePackages.nodejs # NodeJS
         ouch # Zipping/Unzipping CLI tool
         pavucontrol # PulseAudio volume control
         ripgrep # Faster grep
