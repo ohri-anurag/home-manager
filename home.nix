@@ -1,16 +1,10 @@
 {
-  config,
   pkgs,
-  nixgl,
   lib,
   user,
   ...
 }:
 {
-  nixGL.packages = nixgl.packages;
-  nixGL.defaultWrapper = "nvidia";
-  nixGL.installScripts = [ "nvidia" ];
-
   home = {
     # Home Manager needs a bit of information about you and the
     # paths it should manage.
@@ -19,7 +13,7 @@
     file = {
       yubikey.source = builtins.fetchTarball {
         url = "https://developers.yubico.com/yubioath-flutter/Releases/yubico-authenticator-latest-linux.tar.gz";
-        sha256 = "sha256:10l3ixgnalm04jvx22qs9mmysqk2iq64vkkadlk3di2lhln8n6kw";
+        sha256 = "sha256:1w4ig86y8dzn5xy1ijin2qify4cc8q4kjqf93nlm750abbxm28s3";
       };
 
       # This is needed in a separate file because crontab doesn't take my .bashrc into account
@@ -108,7 +102,7 @@
       enableBashIntegration = true;
     };
 
-    ghostty = import ./programs/ghostty.nix { inherit config pkgs; };
+    ghostty = import ./programs/ghostty.nix;
 
     git = import ./programs/git.nix { inherit user; };
 

@@ -1,8 +1,6 @@
-{ config, pkgs }:
 {
   enable = true;
   enableBashIntegration = true;
-  package = config.lib.nixGL.wrap pkgs.ghostty;
   settings = {
     font-family = "Hasklug Nerd Font";
     font-size = 14;
