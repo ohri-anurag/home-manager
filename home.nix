@@ -78,6 +78,7 @@
         pavucontrol # PulseAudio volume control
         ripgrep # Faster grep
         stylua # Lua formatter
+        xsel # Clipboard for NeoVim
       ];
   };
 
