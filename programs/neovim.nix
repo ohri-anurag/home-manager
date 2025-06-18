@@ -132,7 +132,6 @@
       false
     )
   '';
-  extraPackages = [ pkgs.xsel ];
   plugins = with pkgs.vimPlugins; [
     {
       plugin = lualine-nvim; # Status bar

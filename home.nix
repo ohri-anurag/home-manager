@@ -61,7 +61,6 @@
         bat # Cat with wings
         btop # System monitor
         claude-code
-        cmus # Music player
         difftastic # Semantic diff tool
         fd # Faster find
         gh # GitHub CLI
@@ -71,14 +70,12 @@
         httpie # CLI HTTP client
         jq # CLI JSON processor
         nerd-fonts.hasklug # Hasklug Nerd Font
-        nicotine-plus # Client for Soulseek
         nil # Nix language server
         nixfmt-rfc-style # Nix formatter
         ouch # Zipping/Unzipping CLI tool
-        pavucontrol # PulseAudio volume control
         ripgrep # Faster grep
         stylua # Lua formatter
-        xsel # Clipboard for NeoVim
+        wl-clipboard # Clipboard for NeoVim
       ];
   };
 
