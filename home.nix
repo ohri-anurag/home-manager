@@ -11,11 +11,6 @@
     inherit (user) username homeDirectory;
 
     file = {
-      yubikey.source = builtins.fetchTarball {
-        url = "https://developers.yubico.com/yubioath-flutter/Releases/yubico-authenticator-latest-linux.tar.gz";
-        sha256 = "sha256:1w4ig86y8dzn5xy1ijin2qify4cc8q4kjqf93nlm750abbxm28s3";
-      };
-
       # This is needed in a separate file because crontab doesn't take my .bashrc into account
       # I need to run this as a file, and not as a bash command
       "notify.sh" = {
@@ -74,7 +69,6 @@
         haskellPackages.hasktags # Generate CTAGS for Haskell
         httpie # CLI HTTP client
         jq # CLI JSON processor
-        keepassxc # Password manager
         nerd-fonts.hasklug # Hasklug Nerd Font
         nicotine-plus # Client for Soulseek
         nil # Nix language server
@@ -83,7 +77,6 @@
         pavucontrol # PulseAudio volume control
         ripgrep # Faster grep
         stylua # Lua formatter
-        xclip # Clipboard manager
       ];
   };
 
