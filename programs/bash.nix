@@ -223,7 +223,5 @@
 
     # Register buildToolsComplete to provide completion for the following commands
     complete -F buildToolsComplete build cover debug repl
-
-    export OPENAI_API_KEY="$(cat ${user.homeDirectory}/.openaikey)"
   '';
 }
