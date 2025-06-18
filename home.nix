@@ -57,6 +57,7 @@
       in
       with pkgs;
       [
+        awscli2 # AWS CLI
         bat # Cat with wings
         btop # System monitor
         claude-code
