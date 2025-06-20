@@ -9,6 +9,7 @@
     init = {
       defaultBranch = "main";
     };
+    safe.directory = "/etc/nixos";
     diff = {
       tool = "nvimdiff";
     };
