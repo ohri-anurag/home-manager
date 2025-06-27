@@ -61,18 +61,19 @@
         bat # Cat with wings
         btop # System monitor
         claude-code
+        curlie # CLI HTTP client
         difftastic # Semantic diff tool
         fd # Faster find
         gh # GitHub CLI
         glow # CLI markdown renderer
         gum # CLI Tool for making awesome bash scripts
         haskellPackages.hasktags # Generate CTAGS for Haskell
-        httpie # CLI HTTP client
         jq # CLI JSON processor
         nerd-fonts.hasklug # Hasklug Nerd Font
         nil # Nix language server
         nixfmt-rfc-style # Nix formatter
         ouch # Zipping/Unzipping CLI tool
+        parallel # CLI tool for parallelisation
         ripgrep # Faster grep
         stylua # Lua formatter
         wl-clipboard # Clipboard for NeoVim
