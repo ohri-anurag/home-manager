@@ -71,6 +71,7 @@
         jq # CLI JSON processor
         nerd-fonts.hasklug # Hasklug Nerd Font
         nil # Nix language server
+        nix-output-monitor # Better nix build
         nixfmt-rfc-style # Nix formatter
         ouch # Zipping/Unzipping CLI tool
         parallel # CLI tool for parallelisation
