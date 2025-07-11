@@ -69,10 +69,12 @@
         gum # CLI Tool for making awesome bash scripts
         haskellPackages.hasktags # Generate CTAGS for Haskell
         jq # CLI JSON processor
+        libxml2 # XML Tools
         nerd-fonts.hasklug # Hasklug Nerd Font
         nil # Nix language server
         nix-output-monitor # Better nix build
         nixfmt-rfc-style # Nix formatter
+        openssl # Crypto tools
         ouch # Zipping/Unzipping CLI tool
         parallel # CLI tool for parallelisation
         ripgrep # Faster grep
