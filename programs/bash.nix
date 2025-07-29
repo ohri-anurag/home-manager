@@ -18,7 +18,7 @@
     gpl = "git pull";
     gplm = "git pull origin master";
     gplr = "git pull --recurse-submodules";
-    gpu = "git push --set-upstream origin '$(git symbolic-ref --short HEAD)'";
+    gpu = "git push --set-upstream origin $(git symbolic-ref --short HEAD)";
     grc = "git rebase --continue";
     gri = "git rebase -i";
     grs = "git rebase --skip";
