@@ -1,6 +1,5 @@
 {
   pkgs,
-  lib,
   user,
   ...
 }:
@@ -48,10 +47,10 @@
       let
         # Setup for claude code
         claude-code = pkgs.claude-code.overrideAttrs (_: rec {
-          version = "1.0.33";
+          version = "1.0.38";
           src = pkgs.fetchzip {
             url = "https://registry.npmjs.org/@anthropic-ai/claude-code/-/claude-code-${version}.tgz";
-            hash = "sha256-AH/ZokL0Ktsx18DrpUKgYrZKdBnKo29jntwXUWspH8w=";
+            hash = "sha256-flG9VlnQfMfGFBbs6RdQKSbceD/Tke19Euo8znR5OG0=";
           };
         });
       in
