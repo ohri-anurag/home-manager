@@ -435,7 +435,6 @@
         vim.keymap.set("n", "<c-n>", "<Plug>(YankyNextEntry)")
       '';
     }
-    copilot-vim # Copilot integration
     {
       plugin = yazi-nvim; # Yazi integration for Neovim
       type = "lua";
