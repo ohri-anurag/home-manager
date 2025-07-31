@@ -97,8 +97,6 @@
       enableBashIntegration = true;
     };
 
-    ghostty = import ./programs/ghostty.nix;
-
     foot = import ./programs/foot.nix;
 
     git = import ./programs/git.nix { inherit user; };
