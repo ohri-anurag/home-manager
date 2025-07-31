@@ -6,7 +6,7 @@
       initial-window-mode = "maximized";
     };
     cursor = {
-      blink = true;
+      blink = "yes";
     };
     colors = {
       foreground = "b2b2b2";
