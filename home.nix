@@ -128,6 +128,8 @@
 
     # File manager
     yazi = import ./programs/yazi.nix;
+
+    zellij.enable = true;
   };
 
   services = {

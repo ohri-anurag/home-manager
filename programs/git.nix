@@ -20,6 +20,9 @@
     mergetool = {
       keepBackup = false;
     };
+    pull = {
+      rebase = false;
+    };
   };
   ignores = [
     "node_modules"

@@ -26,6 +26,7 @@
     gst = "git status";
     ll = "ls -al";
     v = "nvim";
+    z = "zellij";
   };
   enableCompletion = true;
   bashrcExtra = ''
