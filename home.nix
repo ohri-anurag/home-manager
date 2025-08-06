@@ -129,7 +129,7 @@
     # File manager
     yazi = import ./programs/yazi.nix;
 
-    zellij.enable = true;
+    zellij = import ./programs/zellij.nix;
   };
 
   services = {
