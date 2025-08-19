@@ -25,7 +25,7 @@
                 DESC=$(echo $task | jq -r '.desc')
                 ID=$(echo $task | jq -r '.id')
                 XDG_RUNTIME_DIR=/run/user/$(id -u) notify-send --app-name "TODO" -t 0 "Task due: $ID" "$DESC"
-                XDG_RUNTIME_DIR=/run/user/$(id -u) paplay /usr/share/sounds/freedesktop/stereo/complete.oga
+                XDG_RUNTIME_DIR=/run/user/$(id -u) paplay /run/current-system/sw/share/sounds/freedesktop/stereo/complete.oga
               fi
             done
           fi
@@ -68,6 +68,7 @@
         gum # CLI Tool for making awesome bash scripts
         haskellPackages.hasktags # Generate CTAGS for Haskell
         jq # CLI JSON processor
+        libnotify # For notify-send
         libxml2 # XML Tools
         nerd-fonts.hasklug # Hasklug Nerd Font
         nil # Nix language server
@@ -133,6 +134,7 @@
   };
 
   services = {
+    mako.enable = true;
     ssh-agent.enable = true;
   };
 
