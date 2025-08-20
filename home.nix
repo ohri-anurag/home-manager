@@ -1,6 +1,7 @@
 {
   pkgs,
   user,
+  bask,
   ...
 }:
 {
@@ -57,6 +58,7 @@
       with pkgs;
       [
         awscli2 # AWS CLI
+        bask # Framework for executing CLI commands
         bat # Cat with wings
         btop # System monitor
         claude-code

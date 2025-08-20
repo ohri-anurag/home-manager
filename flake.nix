@@ -9,6 +9,11 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     flake-utils.url = "github:numtide/flake-utils";
+    bask = {
+      url = "github:ohri-anurag/bask";
+      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.flake-utils.follows = "flake-utils";
+    };
   };
 
   outputs =
@@ -16,6 +21,7 @@
       nixpkgs,
       home-manager,
       flake-utils,
+      bask,
       ...
     }:
     flake-utils.lib.eachDefaultSystem (
@@ -39,6 +45,7 @@
           # to pass through arguments to home.nix
           extraSpecialArgs = {
             inherit user;
+            bask = bask.outputs.packages.${system}.default;
           };
         };
       }
