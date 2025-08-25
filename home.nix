@@ -60,7 +60,6 @@
         gum # CLI Tool for making awesome bash scripts
         haskellPackages.hasktags # Generate CTAGS for Haskell
         jq # CLI JSON processor
-        libnotify # For notify-send
         libxml2 # XML Tools
         nerd-fonts.hasklug # Hasklug Nerd Font
         nil # Nix language server
@@ -126,7 +125,6 @@
   };
 
   services = {
-    mako.enable = true;
     ssh-agent.enable = true;
   };
 
