@@ -50,12 +50,7 @@
     rootDir="${user.bellroy.rootDir}/haskell"
 
     build() {
-      cd $rootDir
-      echo "optimization: False
-    program-options
-      ghc-options: -Wall" >cabal.project.local
-
-      { git ls-files --other --exclude-standard; git diff --name-only --diff-filter=d; } | grep .hs | xargs hlint -h .hlint.yaml && cabal --builddir=$rootDir/dist-newstyle build $1 && cabal --builddir=$rootDir/dist-newstyle test $1
+      bask ${user.homeDirectory}/build.bask $1 $rootDir
     }
 
     cover() {
