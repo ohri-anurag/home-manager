@@ -43,7 +43,7 @@
       jq -r '(input_line_number | tostring) + " | " + .description + " => " + (.due | strptime("%Y-%m-%dT%H:%M:%SZ") | strftime("%d %b %Y"))' $TASKS_FILE
     }
 
-    function finished() {
+    function finish() {
       sed -i tasks.json -e $1d tasks.json
     }
 
