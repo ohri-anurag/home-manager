@@ -44,7 +44,7 @@
     }
 
     function finish() {
-      sed -i tasks.json -e $1d tasks.json
+      sed -i $TASKS_FILE -e $1d $TASKS_FILE
     }
 
     rootDir="${user.bellroy.rootDir}/haskell"
