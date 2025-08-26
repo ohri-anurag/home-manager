@@ -35,8 +35,8 @@
     }
 
     TASKS_FILE=${user.homeDirectory}/.taskfile
-      function task() {
-        bask ${user.homeDirectory}/task.bask
+    function task() {
+      bask ${user.homeDirectory}/task.bask
     }
 
     function tasks() {
