@@ -40,17 +40,18 @@
     }
 
     function tasks() {
-      jq -r '(input_line_number | tostring) + " | " + .description + " => " + (.due | strptime("%Y-%m-%dT%H:%M:%SZ") | strftime("%d %b %Y"))' $TASKS_FILE
+      jq -r '(input_line_number | tostring) + " | " + (.due | strptime("%Y-%m-%dT%H:%M:%SZ") | strftime("%d %b %Y")) + " | " + .description' $TASKS_FILE
     }
 
     function finish() {
-      sed -i $TASKS_FILE -e $1d $TASKS_FILE
+      sed -i -e $1d $TASKS_FILE
     }
 
     rootDir="${user.bellroy.rootDir}/haskell"
 
     build() {
-      bask ${user.homeDirectory}/build.bask $1 $rootDir
+      cd $rootDir
+      bask ${user.homeDirectory}/build.bask $1
     }
 
     cover() {
