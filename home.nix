@@ -26,7 +26,7 @@
           echo -e optimization: False\\nprogram-options\\n  ghc-options: -Wall
           | writefile cabal.project.local
           | git ls-files --other --exclude-standard -- *.hs || git diff --name-only --diff-filter=d -- '*.hs'
-          | concat 2
+          | concat #1#2
           | xargs hlint -h .hlint.yaml
           | show cabal --builddir=dist-newstyle build $1
           | show cabal --builddir=dist-newstyle test $1
