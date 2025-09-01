@@ -16,7 +16,7 @@
           readline What needs doing? || readline When is it due?
           | passthru || date -u +%Y-%m-%dT%H:%M:%SZ -f -
           | passthru || tr -d '\n'
-          | merge { "due": "$2", "description": "$1" }
+          | concat { "due": "#2", "description": "#1" }
           | appendfile ${user.homeDirectory}/.taskfile
           | sort -o ${user.homeDirectory}/.taskfile ${user.homeDirectory}/.taskfile
         '';
