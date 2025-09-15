@@ -23,13 +23,51 @@
       };
       "build.bask" = {
         text = ''
-          echo -e optimization: False\\nprogram-options\\n  ghc-options: -Wall
+          cd ${user.bellroy.rootDir}/haskell/
+          | echo -e "optimization: False\nprogram-options\n  ghc-options: -Wall"
           | writefile cabal.project.local
           | git ls-files --other --exclude-standard -- *.hs || git diff --name-only --diff-filter=d -- '*.hs'
           | concat #1#2
           | xargs hlint -h .hlint.yaml
           | show cabal --builddir=dist-newstyle build $1
           | show cabal --builddir=dist-newstyle test $1
+        '';
+      };
+      "debug.bask" = {
+        text = ''
+          cd ${user.bellroy.rootDir}/haskell/
+          | echo -e "optimization: False\nprogram-options\n  ghc-options: -Wwarn -Wunused-top-binds -Werror=unused-top-binds"
+          | writefile cabal.project.local
+          | fd .*.cabal\$ .
+          | fzf -f "$1"
+          | head -n 1
+          | dirname #1
+          | cd #1
+          | if $2 then $1:$2 else $1
+          | show ghcid -c "cabal --builddir=${user.bellroy.rootDir}/haskell/dist-newstyle-debug repl #1" -o ghcid.txt
+        '';
+      };
+      "cover.bask" = {
+        text = ''
+          cd ${user.bellroy.rootDir}/haskell/
+          | echo -e "optimization: False\nprogram-options\n  ghc-options: -Wall\npackage *\n  coverage: True\n  library-coverage: True\n\npackage order-processing\n  coverage: False\n  library-coverage: False"
+          | writefile cabal.project.local
+          | show cabal --builddir=dist-newstyle-cover build $1
+          | show cabal --builddir=dist-newstyle-cover test $1
+        '';
+      };
+      "repl.bask" = {
+        text = ''
+          cd ${user.bellroy.rootDir}/haskell/
+          | echo -e "optimization: False\nprogram-options\n  ghc-options: -Wwarn -Wunused-top-binds -Werror=unused-top-binds"
+          | writefile cabal.project.local
+          | fd .*.cabal\$ .
+          | fzf -f "$1"
+          | head -n 1
+          | dirname #1
+          | cd #1
+          | if $2 then $1:$2 else $1
+          | show cabal --builddir=/home/anuragohri92/bellroy/haskell/dist-newstyle-debug repl #1
         '';
       };
     };

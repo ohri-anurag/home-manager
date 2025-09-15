@@ -50,56 +50,19 @@
     rootDir="${user.bellroy.rootDir}/haskell"
 
     build() {
-      cd $rootDir
       bask ${user.homeDirectory}/build.bask $1
     }
 
     cover() {
-      cd $rootDir
-      echo "optimization: False
-    program-options
-      ghc-options: -Wall
-    package *
-      coverage: True
-      library-coverage: True
-
-    package order-processing
-      coverage: False
-      library-coverage: False
-
-    " >cabal.project.local
-
-      cabal --builddir=$rootDir/dist-newstyle-cover build $1 && cabal --builddir=$rootDir/dist-newstyle-cover test $1
+      bask ${user.homeDirectory}/cover.bask $1
     }
 
     debug() {
-      cd "$rootDir" || exit
-      echo "optimization: False
-    program-options
-      ghc-options: -Wwarn -Wunused-top-binds -Werror=unused-top-binds" >cabal.project.local
-      cd $(dirname $(ls $(awk '/^packages:$/,/^program-options$/ {print $1}' cabal.project | head -n -1 | tail -n +2 | awk '{print $1"/*.cabal"}') | fzf -f "$1" | head -n 1)) || exit
-      if [[ $2 != "" ]]; then
-        target="$1:$2"
-      else
-        target=$1
-      fi
-      ghcid -c "cabal --builddir=$rootDir/dist-newstyle-debug repl $target" -o ghcid.txt
-
+      bask ${user.homeDirectory}/debug.bask $1 $2
     }
 
     repl() {
-      cd "$rootDir" || exit
-      echo "optimization: False
-    program-options
-      ghc-options: -Wwarn -Wunused-top-binds -Werror=unused-top-binds" >cabal.project.local
-      cd $(dirname $(ls $(awk '/^packages:$/,/^program-options$/ {print $1}' cabal.project | head -n -1 | tail -n +2 | awk '{print $1"/*.cabal"}') | fzf -f "$1" | head -n 1)) || exit
-      if [[ $2 != "" ]]; then
-        target="$1:$2"
-      else
-        target=$1
-      fi
-      cabal --builddir=$rootDir/dist-newstyle-debug repl $target
-
+      bask ${user.homeDirectory}/repl.bask $1 $2
     }
 
     buildToolsComplete() {
