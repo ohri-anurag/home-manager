@@ -67,7 +67,7 @@
           | dirname #1
           | cd #1
           | if $2 then $1:$2 else $1
-          | show cabal --builddir=/home/anuragohri92/bellroy/haskell/dist-newstyle-debug repl #1
+          | interact cabal --builddir=/home/anuragohri92/bellroy/haskell/dist-newstyle-debug repl #1
         '';
       };
     };
