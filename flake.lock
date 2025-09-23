@@ -10,11 +10,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1757989520,
-        "narHash": "sha256-djCNDvhSsZQea447hkOnNt4WxeAg5ece3UZVA5uxnks=",
+        "lastModified": 1758607733,
+        "narHash": "sha256-vkAQkORPP8ZTpijWZLsMwqpPtE0l87uAir+LUJsGk8k=",
         "owner": "ohri-anurag",
         "repo": "bask",
-        "rev": "59e7f0fb0d917df573644bf5cca654cd216e21ae",
+        "rev": "f1c978398c3bcc3dfcc904261ff97152e898b72a",
         "type": "github"
       },
       "original": {
