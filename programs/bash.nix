@@ -36,7 +36,13 @@
 
     TASKS_FILE=${user.homeDirectory}/.taskfile
     function task() {
-      bask ${user.homeDirectory}/task.bask
+      read -p "What needs doing? " desc
+      read -p "When is it due? " due
+
+      duedate=$(date -u +%Y-%m-%dT%H:%M:%SZ -d "$due" | tr -d '\n')
+
+      echo "{ \"due\": \"$duedate\", \"description\": \"$desc\" }" >> ${user.homeDirectory}/.taskfile
+      sort -o ${user.homeDirectory}/.taskfile ${user.homeDirectory}/.taskfile
     }
 
     function tasks() {
@@ -50,19 +56,55 @@
     rootDir="${user.bellroy.rootDir}/haskell"
 
     build() {
-      bask ${user.homeDirectory}/build.bask $1
+      cd ${user.homeDirectory}/bellroy/haskell/ |
+        echo -e "optimization: False\nprogram-options\n  ghc-options: -Wall" > cabal.project.local |
+        { git ls-files --other --exclude-standard -- *.hs; git diff --name-only --diff-filter=d -- '*.hs'; } |
+        xargs hlint -h .hlint.yaml |
+        cabal --builddir=dist-newstyle build $1 && cabal --builddir=dist-newstyle test $1
     }
 
     cover() {
-      bask ${user.homeDirectory}/cover.bask $1
+      cd ${user.homeDirectory}/bellroy/haskell/ |
+        echo -e "optimization: False\nprogram-options\n  ghc-options: -Wall\npackage *\n  coverage: True\n  library-coverage: True\n\npackage order-processing\n  coverage: False\n  library-coverage: False" > cabal.project.local |
+        { git ls-files --other --exclude-standard -- *.hs; git diff --name-only --diff-filter=d -- '*.hs'; } |
+        xargs hlint -h .hlint.yaml |
+        cabal --builddir=dist-newstyle-cover build $1 && cabal --builddir=dist-newstyle-cover test $1
     }
 
     debug() {
-      bask ${user.homeDirectory}/debug.bask $1 $2
+      cabalPath=$(cd ${user.homeDirectory}/bellroy/haskell/ |
+        echo -e "optimization: False\nprogram-options\n  ghc-options: -Wwarn -Wunused-top-binds -Werror=unused-top-binds" > cabal.project.local |
+        fd .*.cabal\$ . |
+        fzf -f "$1" |
+        head -n 1)
+
+      cd $(dirname $cabalPath)
+      pwd
+
+      if [[ $2 != "" ]]; then
+        target=$1:$2
+      else
+        target=$1
+      fi
+      ghcid -c "cabal --builddir=${user.homeDirectory}/bellroy/haskell/dist-newstyle-debug repl $target" -o ghcid.txt
     }
 
     repl() {
-      bask ${user.homeDirectory}/repl.bask $1 $2
+      cabalPath=$(cd ${user.homeDirectory}/bellroy/haskell/ |
+        echo -e "optimization: False\nprogram-options\n  ghc-options: -Wwarn -Wunused-top-binds -Werror=unused-top-binds" > cabal.project.local |
+        fd .*.cabal\$ . |
+        fzf -f "$1" |
+        head -n 1)
+
+      cd $(dirname $cabalPath)
+      pwd
+
+      if [[ $2 != "" ]]; then
+        target=$1:$2
+      else
+        target=$1
+      fi
+      cabal --builddir=${user.homeDirectory}/bellroy/haskell/dist-newstyle-debug repl $target
     }
 
     buildToolsComplete() {

@@ -1,28 +1,5 @@
 {
   "nodes": {
-    "bask": {
-      "inputs": {
-        "flake-utils": [
-          "flake-utils"
-        ],
-        "nixpkgs": [
-          "nixpkgs"
-        ]
-      },
-      "locked": {
-        "lastModified": 1758607733,
-        "narHash": "sha256-vkAQkORPP8ZTpijWZLsMwqpPtE0l87uAir+LUJsGk8k=",
-        "owner": "ohri-anurag",
-        "repo": "bask",
-        "rev": "f1c978398c3bcc3dfcc904261ff97152e898b72a",
-        "type": "github"
-      },
-      "original": {
-        "owner": "ohri-anurag",
-        "repo": "bask",
-        "type": "github"
-      }
-    },
     "flake-utils": {
       "inputs": {
         "systems": "systems"
@@ -80,7 +57,6 @@
     },
     "root": {
       "inputs": {
-        "bask": "bask",
         "flake-utils": "flake-utils",
         "home-manager": "home-manager",
         "nixpkgs": "nixpkgs"
