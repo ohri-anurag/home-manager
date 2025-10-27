@@ -34,6 +34,14 @@
       rg -l -F $1 . | xargs sed -i s/$1/$2/g
     }
 
+    garbage() {
+      home-manager expire-generations today
+      cd ${user.homeDirectory}/bellroy
+      ls -A | xargs -I {} sh -c 'rm -rf "{}"/.direnv && rm -rf "{}"/node_modules'
+      rm -rf haskell/dist-*
+      nix store gc -vvvvvv
+    }
+
     TASKS_FILE=${user.homeDirectory}/.taskfile
     function task() {
       read -p "What needs doing? " desc
