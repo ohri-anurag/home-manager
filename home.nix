@@ -29,6 +29,16 @@
             hash = "sha256-U/wd00eva/qbSS4LpW1L7nmPW4dT9naffeMkHQ5xr5o=";
           };
         });
+        gh = pkgs.gh.overrideAttrs (_: rec {
+          version = "2.82.1";
+          src = pkgs.fetchFromGitHub {
+            owner = "cli";
+            repo = "cli";
+            tag = "v${version}";
+            hash = "sha256-WoxPqrh8SLptoG3qRvJbNRSYJE3GMJE7KufwSLGSvtA=";
+          };
+          vendorHash = "sha256-vO/r74h4GJB1q3u429Gto9B621EHZ9rhzHJWtWK6Xh0=";
+        });
       in
       with pkgs;
       [
