@@ -9,9 +9,9 @@
     gc = "git commit -m";
     gca = "git commit --amend";
     gcb = "git checkout -b";
-    gd = "git diff";
+    gd = "GIT_EXTERNAL_DIFF=difft git diff";
     gdt = "git difftool -y";
-    gds = "git diff --staged";
+    gds = "GIT_EXTERNAL_DIFF=difft git diff --staged";
     gmt = "git mergetool";
     gp = "git push";
     gpf = "git push --force-with-lease";

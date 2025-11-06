@@ -1,8 +1,5 @@
 { user }:
 {
-  difftastic = {
-    enable = true;
-  };
   enable = true;
   extraConfig = {
     gpg.ssh.allowedSignersFile = "${user.homeDirectory}/.config/git/allowedSigners";
