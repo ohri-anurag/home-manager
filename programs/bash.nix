@@ -72,7 +72,9 @@
           --preview-command 'echo "{split:\\0:2..|join:\n}" | lynx --stdin --dump' \
           --keybindings 'ctrl-n = "select_next_entry"; ctrl-p = "select_prev_entry"; ctrl-d = "scroll_preview_down"; ctrl-u = "scroll_preview_up";' \
           --input-header "Hoogle: $1")
-      firefox $url
+      if [[  -n $url  ]]; then
+        firefox $url
+      fi
     }
     build() {
       cd ${user.homeDirectory}/bellroy/haskell/ |
