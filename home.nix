@@ -138,5 +138,41 @@
 
   xdg.configFile = {
     "git/allowedSigners".text = "${user.bellroy.email} ${user.bellroy.publicKeyWithoutEmail}";
+    "television/themes/moonfly.toml".text = ''
+      # Moonfly theme for Television
+      # Based on bluz71/vim-moonfly-colors
+      # https://github.com/bluz71/vim-moonfly-colors
+
+      # General properties
+      background = '#080808'
+      border_fg = '#949494'
+      text_fg = '#bdbdbd'
+      dimmed_text_fg = '#9e9e9e'
+
+      # Input section
+      input_text_fg = '#80a0ff'
+      result_count_fg = '#e3c78a'
+
+      # Results display
+      result_name_fg = '#74b2ff'
+      result_line_number_fg = '#e3c78a'
+      result_value_fg = '#c6c6c6'
+      selection_fg = '#eeeeee'
+      selection_bg = '#323437'
+      match_fg = '#ff5d5d'
+
+      # Preview area
+      preview_title_fg = '#79dac8'
+
+      # Mode indicators
+      channel_mode_fg = '#080808'
+      channel_mode_bg = '#cf87e8'
+      remote_control_mode_fg = '#080808'
+      remote_control_mode_bg = '#8cc85f'
+    '';
+    "television/config.toml".text = ''
+      [ui]
+      theme = "moonfly"
+    '';
   };
 }
