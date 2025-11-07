@@ -39,6 +39,19 @@
           };
           vendorHash = "sha256-vO/r74h4GJB1q3u429Gto9B621EHZ9rhzHJWtWK6Xh0=";
         });
+        television = pkgs.stdenv.mkDerivation rec {
+          pname = "television";
+          version = "0.13.9";
+          src = pkgs.fetchzip {
+            url = "https://github.com/alexpasmantier/television/releases/download/${version}/tv-${version}-x86_64-unknown-linux-gnu.tar.gz";
+            hash = "sha256-ANafcYPXMJfC5xcbkUAH3SB2uN72/g0ELQp9mdqkbz4=";
+          };
+          installPhase = ''
+            mkdir -p $out/bin
+
+            cp -r ${src}/tv $out/bin/
+          '';
+        };
       in
       with pkgs;
       [
@@ -54,6 +67,7 @@
         haskellPackages.hasktags # Generate CTAGS for Haskell
         jq # CLI JSON processor
         libxml2 # XML Tools
+        lynx # Display HTML in terminal
         nerd-fonts.hasklug # Hasklug Nerd Font
         nil # Nix language server
         nix-output-monitor # Better nix build
@@ -63,6 +77,7 @@
         parallel # CLI tool for parallelisation
         ripgrep # Faster grep
         stylua # Lua formatter
+        television # Telescope style picker for the terminal
         wl-clipboard # Clipboard for NeoVim
       ];
   };

@@ -63,6 +63,17 @@
 
     rootDir="${user.bellroy.rootDir}/haskell"
 
+    h() {
+      url=$(hoogle --json "$1" \
+        | jq -rc '.[] | .module.name + " " + .item + "\\0" + .url + "\\0" + .docs | sub("\\n"; "\\0"; "g")' \
+        | tv \
+          --source-display '{split:\\0:0}' \
+          --source-output '{split:\\0:1}' \
+          --preview-command 'echo "{split:\\0:2..|join:\n}" | lynx --stdin --dump' \
+          --keybindings 'ctrl-n = "select_next_entry"; ctrl-p = "select_prev_entry"; ctrl-d = "scroll_preview_down"; ctrl-u = "scroll_preview_up";' \
+          --input-header "Hoogle: $1")
+      firefox $url
+    }
     build() {
       cd ${user.homeDirectory}/bellroy/haskell/ |
         echo -e "optimization: False\nprogram-options\n  ghc-options: -Wall" > cabal.project.local |
