@@ -210,7 +210,7 @@
       '';
     }
     {
-      plugin = nvim-web-devicons; # Icons for telescope/fzf-lua
+      plugin = nvim-web-devicons; # Icons for fzf-lua
       type = "lua";
       config = ''
         require("nvim-web-devicons").setup({
@@ -220,122 +220,6 @@
         })
       '';
     }
-    plenary-nvim # Telescope dependency
-    {
-      plugin = telescope-nvim; # Fuzzy finder, only used for Hoogle
-      type = "lua";
-      config = ''
-        require("telescope").setup({
-          defaults = {
-            mappings = {
-              i = {
-                ["<Esc>"] = require("telescope.actions").close,
-              },
-            },
-          },
-        })
-        local pickers = require("telescope.pickers")
-        local finders = require("telescope.finders")
-        local conf = require("telescope.config").values
-        local actions = require("telescope.actions")
-        local action_state = require("telescope.actions.state")
-        local previewers = require("telescope.previewers")
-        local putils = require("telescope.previewers.utils")
-
-        local write_lines = function(bufnr, begin, lines)
-          vim.api.nvim_buf_set_lines(bufnr, begin, -1, true, lines)
-          return begin + #lines
-        end
-
-        local write_docs = function(bufnr, begin, docs)
-          local ctr = begin
-          ctr = write_lines(bufnr, ctr, { "{- Documentation:" })
-          ctr = write_lines(bufnr, ctr, docs)
-          ctr = write_lines(bufnr, ctr, { "-}" })
-          return ctr
-        end
-
-        local function open_browser(url)
-          vim.cmd(":silent !firefox " .. vim.fn.fnameescape(url))
-        end
-
-        local show_preview = function(self, entry, status)
-          local lines
-          local item = entry.value
-          local docs = vim.split(item.docs, "\n")
-          local counter
-          local bufnr = self.state.bufnr
-          if item.type == "package" then
-            counter = write_lines(bufnr, 0, { item.item, "" })
-            counter = write_docs(bufnr, counter, docs)
-          elseif item.type == "module" then
-            counter = write_lines(bufnr, 0, { "-- PACKAGE: " .. item.package.name, "", item.item .. " where", "" })
-            counter = write_docs(bufnr, counter, docs)
-          else
-            counter =
-              write_lines(bufnr, 0, { "-- PACKAGE: " .. item.package.name, "", "module " .. item.module.name .. " where", "" })
-            counter = write_docs(bufnr, counter, docs)
-            counter = write_lines(bufnr, counter, { "", item.item })
-          end
-          vim.api.nvim_set_option_value("wrap", true, { win = self.state.winid })
-          vim.api.nvim_set_option_value("number", true, { win = self.state.winid })
-          putils.highlighter(bufnr, "haskell")
-        end
-
-        local hoogle = function(opts)
-          opts = opts or {}
-          local function_name = opts.function_name or ""
-          if function_name == "" then
-            function_name = vim.fn.input("Hoogle search: ")
-          end
-          local on_exit = function(obj)
-            local output = obj.stdout
-            local items = vim.json.decode(output)
-            vim.schedule(function()
-              pickers
-                .new(opts, {
-                  prompt_title = "Hoogle Search: " .. function_name,
-                  previewer = previewers.new_buffer_previewer({
-                    define_preview = show_preview,
-                  }),
-                  finder = finders.new_table({
-                    results = items,
-                    entry_maker = function(entry)
-                      return {
-                        value = entry,
-                        display = entry.module.name or entry.item,
-                        ordinal = entry.module.name or entry.item,
-                      }
-                    end,
-                  }),
-                  sorter = conf.generic_sorter(opts),
-                  attach_mappings = function(prompt_bufnr, map)
-                    actions.select_default:replace(function()
-                      actions.close(prompt_bufnr)
-                    end)
-                    map({ "i", "n" }, "<C-b>", function()
-                      local entry = action_state.get_selected_entry()
-                      open_browser(entry.value.url)
-                      actions.close(prompt_bufnr)
-                    end)
-                    return true
-                  end,
-                })
-                :find()
-            end)
-          end
-          vim.system({ "hoogle", "search", "--json", function_name }, on_exit)
-        end
-
-        local function word_hoogle()
-          local word = vim.fn.expand("<cword>")
-          hoogle({ function_name = word })
-        end
-        vim.keymap.set("n", "<leader>fh", word_hoogle, {})
-        vim.keymap.set("n", "<leader>lh", hoogle, {})
-      '';
-    }
-    telescope-fzf-native-nvim # FZF integration for telescope
     {
       plugin = fzf-lua; # FZF integration for Neovim
       type = "lua";
