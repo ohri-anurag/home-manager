@@ -39,19 +39,6 @@
           };
           vendorHash = "sha256-vO/r74h4GJB1q3u429Gto9B621EHZ9rhzHJWtWK6Xh0=";
         });
-        television = pkgs.stdenv.mkDerivation rec {
-          pname = "television";
-          version = "0.13.9";
-          src = pkgs.fetchzip {
-            url = "https://github.com/alexpasmantier/television/releases/download/${version}/tv-${version}-x86_64-unknown-linux-gnu.tar.gz";
-            hash = "sha256-ANafcYPXMJfC5xcbkUAH3SB2uN72/g0ELQp9mdqkbz4=";
-          };
-          installPhase = ''
-            mkdir -p $out/bin
-
-            cp -r ${src}/tv $out/bin/
-          '';
-        };
       in
       with pkgs;
       [
@@ -77,7 +64,6 @@
         parallel # CLI tool for parallelisation
         ripgrep # Faster grep
         stylua # Lua formatter
-        television # Telescope style picker for the terminal
         wl-clipboard # Clipboard for NeoVim
       ];
   };
@@ -138,41 +124,5 @@
 
   xdg.configFile = {
     "git/allowedSigners".text = "${user.bellroy.email} ${user.bellroy.publicKeyWithoutEmail}";
-    "television/themes/moonfly.toml".text = ''
-      # Moonfly theme for Television
-      # Based on bluz71/vim-moonfly-colors
-      # https://github.com/bluz71/vim-moonfly-colors
-
-      # General properties
-      background = '#080808'
-      border_fg = '#949494'
-      text_fg = '#bdbdbd'
-      dimmed_text_fg = '#9e9e9e'
-
-      # Input section
-      input_text_fg = '#80a0ff'
-      result_count_fg = '#e3c78a'
-
-      # Results display
-      result_name_fg = '#74b2ff'
-      result_line_number_fg = '#e3c78a'
-      result_value_fg = '#c6c6c6'
-      selection_fg = '#eeeeee'
-      selection_bg = '#323437'
-      match_fg = '#ff5d5d'
-
-      # Preview area
-      preview_title_fg = '#79dac8'
-
-      # Mode indicators
-      channel_mode_fg = '#080808'
-      channel_mode_bg = '#cf87e8'
-      remote_control_mode_fg = '#080808'
-      remote_control_mode_bg = '#8cc85f'
-    '';
-    "television/config.toml".text = ''
-      [ui]
-      theme = "moonfly"
-    '';
   };
 }

@@ -64,14 +64,17 @@
     rootDir="${user.bellroy.rootDir}/haskell"
 
     h() {
-      url=$(hoogle --json "$1" \
-        | jq -rc '.[] | .module.name + " " + .item + "\\0" + .url + "\\0" + .docs | sub("\\n"; "\\0"; "g")' \
-        | tv \
-          --source-display '{split:\\0:0}' \
-          --source-output '{split:\\0:1}' \
-          --preview-command 'echo "{split:\\0:2..|join:\n}" | lynx --stdin --dump' \
-          --keybindings 'ctrl-n = "select_next_entry"; ctrl-p = "select_prev_entry"; ctrl-d = "scroll_preview_down"; ctrl-u = "scroll_preview_up";' \
-          --input-header "Hoogle: $1")
+      url=$(hoogle $1 --json \
+      | jq -rc '.[] | "[" + .module.name + "] " + .item + "|" + .url + "|" + .docs | sub("\\n";"<br>";"g")' \
+      | fzf \
+        -d '|' \
+        --with-nth='{1}' \
+        --accept-nth=2 \
+        --header="Hoogle: $1" \
+        --preview="echo {1} | sed 's/ /\n\n/' | sed 's/->/\n\t->/g'; echo; echo {3..} | lynx --dump --stdin" \
+        --preview-label='Docs' \
+        --cycle \
+        --bind 'ctrl-d:preview-down,ctrl-u:preview-up')
       if [[  -n $url  ]]; then
         firefox $url
       fi
