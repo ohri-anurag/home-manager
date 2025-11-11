@@ -81,16 +81,16 @@
       fi
     }
     build() {
-      cd ${user.homeDirectory}/bellroy/haskell/ |
-        echo -e "optimization: False\nprogram-options\n  ghc-options: -Wall" > cabal.project.local |
+      cd ${user.homeDirectory}/bellroy/haskell/
+      echo -e "optimization: False\nprogram-options\n  ghc-options: -Wall" > cabal.project.local |
         { git ls-files --other --exclude-standard -- *.hs; git diff --name-only --diff-filter=d -- '*.hs'; } |
         xargs hlint -h .hlint.yaml |
         cabal --builddir=dist-newstyle build $1 && cabal --builddir=dist-newstyle test $1
     }
 
     cover() {
-      cd ${user.homeDirectory}/bellroy/haskell/ |
-        echo -e "optimization: False\nprogram-options\n  ghc-options: -Wall\npackage *\n  coverage: True\n  library-coverage: True\n\npackage order-processing\n  coverage: False\n  library-coverage: False" > cabal.project.local |
+      cd ${user.homeDirectory}/bellroy/haskell/
+      echo -e "optimization: False\nprogram-options\n  ghc-options: -Wall\npackage *\n  coverage: True\n  library-coverage: True\n\npackage order-processing\n  coverage: False\n  library-coverage: False" > cabal.project.local |
         { git ls-files --other --exclude-standard -- *.hs; git diff --name-only --diff-filter=d -- '*.hs'; } |
         xargs hlint -h .hlint.yaml |
         cabal --builddir=dist-newstyle-cover build $1 && cabal --builddir=dist-newstyle-cover test $1
