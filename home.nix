@@ -59,6 +59,7 @@
         nil # Nix language server
         nix-output-monitor # Better nix build
         nixfmt-rfc-style # Nix formatter
+        nodejs_24 # NodeJS
         openssl # Crypto tools
         ouch # Zipping/Unzipping CLI tool
         parallel # CLI tool for parallelisation
