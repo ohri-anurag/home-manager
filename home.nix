@@ -21,15 +21,27 @@
 
     packages =
       let
-        gh = pkgs.gh.overrideAttrs (_: rec {
-          version = "2.82.1";
-          src = pkgs.fetchFromGitHub {
-            owner = "cli";
-            repo = "cli";
-            tag = "v${version}";
-            hash = "sha256-WoxPqrh8SLptoG3qRvJbNRSYJE3GMJE7KufwSLGSvtA=";
+        gh = pkgs.stdenv.mkDerivation rec {
+          pname = "gh";
+          version = "2.83.1";
+          src = pkgs.fetchzip {
+            url = "https://github.com/cli/cli/releases/download/v${version}/gh_${version}_linux_amd64.tar.gz";
+            hash = "sha256-5JXD9nek5JTIq8HjAlqbj09B4n5Nssy//tFUlaIThtI=";
           };
-          vendorHash = "sha256-vO/r74h4GJB1q3u429Gto9B621EHZ9rhzHJWtWK6Xh0=";
+          installPhase = ''
+            mkdir -p $out/bin
+            cp ${src}/bin/gh $out/bin/
+          '';
+
+        };
+
+        # Setup for claude code
+        claude-code = pkgs.claude-code.overrideAttrs (_: rec {
+          version = "2.0.44";
+          src = pkgs.fetchzip {
+            url = "https://registry.npmjs.org/@anthropic-ai/claude-code/-/claude-code-${version}.tgz";
+            hash = "sha256-4MRaH/Dbm9z0xvnfRMdi8u39eeHaTMh6y7h5AtLYNXs=";
+          };
         });
       in
       with pkgs;
@@ -37,6 +49,7 @@
         awscli2 # AWS CLI
         bat # Cat with wings
         btop # System monitor
+        claude-code
         curlie # CLI HTTP client
         difftastic # Semantic diff tool
         fd # Faster find
@@ -50,7 +63,6 @@
         nil # Nix language server
         nix-output-monitor # Better nix build
         nixfmt-rfc-style # Nix formatter
-        nodejs_24 # NodeJS
         openssl # Crypto tools
         ouch # Zipping/Unzipping CLI tool
         parallel # CLI tool for parallelisation
