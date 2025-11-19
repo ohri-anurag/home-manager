@@ -27,7 +27,6 @@
     ll = "ls -al";
     v = "nvim";
     z = "zellij";
-    claude = "${user.homeDirectory}/bellroy/node_modules/@anthropic-ai/claude-code/cli.js";
   };
   enableCompletion = true;
   bashrcExtra = ''
