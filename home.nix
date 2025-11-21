@@ -94,6 +94,17 @@
     # Let Home Manager install and manage itself.
     home-manager.enable = true;
 
+    lazygit = {
+      enable = true;
+      settings = {
+        gui = {
+          theme = {
+            selectedLineBgColor = [ "default" ];
+          };
+        };
+      };
+    };
+
     mergiraf.enable = true;
 
     neovim = import ./programs/neovim.nix {

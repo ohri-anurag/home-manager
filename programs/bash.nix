@@ -2,6 +2,7 @@
 {
   enable = true;
   shellAliases = {
+    g = "lazygit";
     ga = "git add";
     gap = "git add --patch";
     gb = "git branch";
