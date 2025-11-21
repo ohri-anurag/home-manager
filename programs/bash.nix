@@ -2,7 +2,6 @@
 {
   enable = true;
   shellAliases = {
-    g = "glow -p -w 0";
     ga = "git add";
     gap = "git add --patch";
     gb = "git branch";
@@ -25,6 +24,7 @@
     gra = "git rebase --abort";
     gst = "git status";
     ll = "ls -al";
+    m = "glow -p -w 0 -s dracula";
     v = "nvim";
     z = "zellij";
   };
