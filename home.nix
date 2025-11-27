@@ -21,12 +21,15 @@
 
     packages =
       let
+        # Import package versions from JSON
+        versions = builtins.fromJSON (builtins.readFile ./package-versions.json);
+
         gh = pkgs.stdenv.mkDerivation rec {
           pname = "gh";
-          version = "2.83.1";
+          version = versions.packages.gh.version;
           src = pkgs.fetchzip {
             url = "https://github.com/cli/cli/releases/download/v${version}/gh_${version}_linux_amd64.tar.gz";
-            hash = "sha256-5JXD9nek5JTIq8HjAlqbj09B4n5Nssy//tFUlaIThtI=";
+            hash = versions.packages.gh.hash;
           };
           installPhase = ''
             mkdir -p $out/bin
@@ -37,10 +40,10 @@
 
         # Setup for claude code
         claude-code = pkgs.claude-code.overrideAttrs (_: rec {
-          version = "2.0.55";
+          version = versions.packages.claude-code.version;
           src = pkgs.fetchzip {
             url = "https://registry.npmjs.org/@anthropic-ai/claude-code/-/claude-code-${version}.tgz";
-            hash = "sha256-wsjOkNxuBLMYprjaZQyUZHiqWl8UG7cZ1njkyKZpRYg=";
+            hash = versions.packages.claude-code.hash;
           };
         });
       in

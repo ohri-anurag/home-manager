@@ -1,0 +1,14 @@
+{
+  "packages": {
+    "claude-code": {
+      "version": "2.0.55",
+      "hash": "sha256-wsjOkNxuBLMYprjaZQyUZHiqWl8UG7cZ1njkyKZpRYg=",
+      "check": "curl -s https://registry.npmjs.org/@anthropic-ai/claude-code/latest | jq -r '.version'"
+    },
+    "gh": {
+      "version": "2.83.1",
+      "hash": "sha256-5JXD9nek5JTIq8HjAlqbj09B4n5Nssy//tFUlaIThtI=",
+      "check": "gh api repos/cli/cli/releases/latest --jq '.tag_name' | cut -c2-"
+    }
+  }
+}
