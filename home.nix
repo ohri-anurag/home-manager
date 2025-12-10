@@ -115,12 +115,16 @@
     };
 
     ssh = {
-      addKeysToAgent = "yes";
       enable = true;
+      enableDefaultConfig = false;
       extraOptionOverrides = {
         IdentityFile = user.bellroy.ssh.privateKeyPath;
       };
       matchBlocks = {
+        "*" = {
+          addKeysToAgent = "yes";
+          userKnownHostsFile = "~/.ssh/known_hosts";
+        };
         "*.trikeapps.com" = {
           inherit (user.bellroy.ssh) user;
         };

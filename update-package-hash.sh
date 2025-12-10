@@ -67,5 +67,5 @@ echo "Running home-manager switch..."
 home-manager switch
 
 git add .
-gc "Updated Claude Code"
-gp
+git commit -m "Updated Claude Code"
+git push

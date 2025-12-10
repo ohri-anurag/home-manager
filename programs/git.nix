@@ -1,7 +1,15 @@
 { user }:
 {
   enable = true;
-  extraConfig = {
+  ignores = [
+    "node_modules"
+  ];
+  signing = {
+    format = "ssh";
+    key = user.bellroy.publicKey;
+    signByDefault = true;
+  };
+  settings = {
     gpg.ssh.allowedSignersFile = "${user.homeDirectory}/.config/git/allowedSigners";
     init = {
       defaultBranch = "main";
@@ -20,15 +28,9 @@
     pull = {
       rebase = false;
     };
+    user = {
+      email = user.bellroy.email;
+      name = user.name;
+    };
   };
-  ignores = [
-    "node_modules"
-  ];
-  signing = {
-    format = "ssh";
-    key = user.bellroy.publicKey;
-    signByDefault = true;
-  };
-  userEmail = user.bellroy.email;
-  userName = user.name;
 }
