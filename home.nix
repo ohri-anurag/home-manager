@@ -24,20 +24,6 @@
         # Import package versions from JSON
         versions = builtins.fromJSON (builtins.readFile ./package-versions.json);
 
-        gh = pkgs.stdenv.mkDerivation rec {
-          pname = "gh";
-          version = versions.packages.gh.version;
-          src = pkgs.fetchzip {
-            url = "https://github.com/cli/cli/releases/download/v${version}/gh_${version}_linux_amd64.tar.gz";
-            hash = versions.packages.gh.hash;
-          };
-          installPhase = ''
-            mkdir -p $out/bin
-            cp ${src}/bin/gh $out/bin/
-          '';
-
-        };
-
         # Setup for claude code
         claude-code = pkgs.claude-code.overrideAttrs (_: rec {
           version = versions.packages.claude-code.version;
