@@ -1,8 +1,8 @@
 {
   "packages": {
     "claude-code": {
-      "version": "2.0.64",
-      "hash": "sha256-YkdJHr63b9ExU3rOFWt7GTiVRxeAJHmRRoozWEqlFEY=",
+      "version": "2.0.70",
+      "hash": "sha256-RTMhrFhbamO8Ow5iKd3IiLoKoLF5cz279ArjPZymE9o=",
       "check": "curl -s https://registry.npmjs.org/@anthropic-ai/claude-code/latest | jq -r '.version'"
     }
   }
