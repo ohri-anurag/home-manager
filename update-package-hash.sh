@@ -67,7 +67,7 @@ echo "Running home-manager switch..."
 home-manager switch
 
 # Run this to start the SSH Daemon
-ssh git@github.com
+ssh git@github.com || true
 
 git add .
 git commit -m "Updated Claude Code"

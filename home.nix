@@ -80,6 +80,13 @@
 
     git = import ./programs/git.nix { inherit user; };
 
+    helix = {
+      enable = true;
+      settings = {
+        theme = "carbonfox";
+      };
+    };
+
     # Let Home Manager install and manage itself.
     home-manager.enable = true;
 

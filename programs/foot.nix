@@ -2,7 +2,7 @@
   enable = true;
   settings = {
     main = {
-      font = "Hasklug Nerd Font:size=14";
+      font = "Hasklug Nerd Font:size=12";
       initial-window-mode = "maximized";
     };
     cursor = {
