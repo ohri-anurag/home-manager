@@ -134,5 +134,15 @@
 
   xdg.configFile = {
     "git/allowedSigners".text = "${user.bellroy.email} ${user.bellroy.publicKeyWithoutEmail}";
+
+    "helix/themes/moonfly.toml".source = pkgs.fetchurl {
+      url = "https://raw.githubusercontent.com/polychromatist/helix-moonfly-colors/refs/heads/main/moonfly.toml";
+      sha256 = "sha256-n1c+ENygU2ihNLW2mmiQXPJ+fBf0HEd9vsK0xJjUMJM=";
+    };
+
+    "zellij/themes/moonfly.kdl".source = pkgs.fetchurl {
+      url = "https://raw.githubusercontent.com/bluz71/vim-moonfly-colors/refs/heads/master/extras/moonfly-zellij.kdl";
+      sha256 = "sha256-dWM2ET8wnfmOlakctkTkL74uGc6Fyes5Ta4aT7J2xM4=";
+    };
   };
 }

@@ -3,7 +3,7 @@
   enable = true;
   extraPackages = [ pkgs.simple-completion-language-server ];
   settings = {
-    theme = "catppuccin_mocha";
+    theme = "moonfly";
     editor = {
       color-modes = true;
       indent-guides = {
@@ -16,6 +16,9 @@
   };
   languages = {
     language-server = {
+      hls = {
+        command = "haskell-language-server";
+      };
       scls = {
         command = "simple-completion-language-server";
         config = {
@@ -43,7 +46,10 @@
             "%sh{pwd}/%{buffer_name}"
           ];
         };
-        language-servers = [ "scls" ];
+        language-servers = [
+          "hls"
+          "scls"
+        ];
         auto-format = true;
       }
       {
@@ -60,7 +66,6 @@
           command = "jq";
           args = [
             "."
-            "%{buffer_name}"
           ];
         };
       }
