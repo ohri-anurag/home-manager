@@ -20,6 +20,8 @@
         "Ctrl b"
         "Ctrl t"
         "Ctrl g"
+        "Alt i"
+        "Alt o"
       ];
       normal = {
         "bind \"Alt t\"" = {
