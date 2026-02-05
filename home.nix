@@ -136,8 +136,8 @@
     "git/allowedSigners".text = "${user.bellroy.email} ${user.bellroy.publicKeyWithoutEmail}";
 
     "helix/themes/moonfly.toml".source = pkgs.fetchurl {
-      url = "https://raw.githubusercontent.com/polychromatist/helix-moonfly-colors/refs/heads/main/moonfly.toml";
-      sha256 = "sha256-n1c+ENygU2ihNLW2mmiQXPJ+fBf0HEd9vsK0xJjUMJM=";
+      url = "https://gist.githubusercontent.com/ohri-anurag/2a567f281e023b6a31dbae0e2f018bbe/raw/255dd252fc4cc9aa7031177e3601a48e48bd81bc/moonfly.toml";
+      sha256 = "sha256-6xy5P2ii20xyfNYp2R9mLR4es8AVgt4FTLoAW63CKNw=";
     };
 
     "zellij/themes/moonfly.kdl".source = pkgs.fetchurl {
