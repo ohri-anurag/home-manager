@@ -26,6 +26,13 @@
           feature_snippets = false;
         };
       };
+      sorbet = {
+        command = "bash";
+        args = [
+          "-c"
+          "$(bundle info --path sorbet-static)/libexec/sorbet tc --lsp --enable-all-beta-lsp-features --disable-watchman"
+        ];
+      };
     };
     language = [
       {
@@ -36,6 +43,11 @@
       {
         name = "rust";
         formatter.command = "rustfmt";
+      }
+      {
+        name = "ruby";
+        language-servers = [ "sorbet" ];
+        auto-format = true;
       }
       {
         name = "haskell";
