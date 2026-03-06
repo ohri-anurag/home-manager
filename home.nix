@@ -1,0 +1,148 @@
+{
+  pkgs,
+  user,
+  ...
+}:
+{
+  home = {
+    # Home Manager needs a bit of information about you and the
+    # paths it should manage.
+    inherit (user) username homeDirectory;
+
+    # This value determines the Home Manager release that your
+    # configuration is compatible with. This helps avoid breakage
+    # when a new Home Manager release introduces backwards
+    # incompatible changes.
+    #
+    # You can update Home Manager without changing this value. See
+    # the Home Manager release notes for a list of state version
+    # changes in each release.
+    stateVersion = "25.05";
+
+    packages =
+      let
+        # Import package versions from JSON
+        versions = builtins.fromJSON (builtins.readFile ./package-versions.json);
+
+        # Setup for claude code
+        claude-code = pkgs.claude-code.overrideAttrs (_: rec {
+          version = versions.packages.claude-code.version;
+          src = pkgs.fetchzip {
+            url = "https://registry.npmjs.org/@anthropic-ai/claude-code/-/claude-code-${version}.tgz";
+            hash = versions.packages.claude-code.hash;
+          };
+        });
+      in
+      with pkgs;
+      [
+        awscli2 # AWS CLI
+        bat # Cat with wings
+        btop # System monitor
+        claude-code
+        curlie # CLI HTTP client
+        difftastic # Semantic diff tool
+        fd # Faster find
+        gh # GitHub CLI
+        glow # CLI markdown renderer
+        haskellPackages.hasktags # Generate CTAGS for Haskell
+        jq # CLI JSON processor
+        libxml2 # XML Tools
+        lynx # Display HTML in terminal
+        nerd-fonts.hasklug # Hasklug Nerd Font
+        nil # Nix language server
+        nix-output-monitor # Better nix build
+        nixfmt-rfc-style # Nix formatter
+        openssl # Crypto tools
+        ouch # Zipping/Unzipping CLI tool
+        parallel # CLI tool for parallelisation
+        ripgrep # Faster grep
+        stylua # Lua formatter
+        wl-clipboard # Clipboard for NeoVim
+      ];
+  };
+
+  programs = {
+    bash = import ./programs/bash.nix { inherit user; };
+
+    # Environment switcher
+    direnv = {
+      enable = true;
+      enableBashIntegration = true;
+    };
+
+    # Fuzzy finder
+    fzf = {
+      enable = true;
+      enableBashIntegration = true;
+    };
+
+    foot = import ./programs/foot.nix;
+
+    git = import ./programs/git.nix { inherit user; };
+
+    helix = import ./programs/helix.nix { inherit pkgs; };
+
+    # Let Home Manager install and manage itself.
+    home-manager.enable = true;
+
+    lazygit = {
+      enable = true;
+      settings = {
+        gui = {
+          theme = {
+            selectedLineBgColor = [ "default" ];
+          };
+        };
+      };
+    };
+
+    mergiraf.enable = true;
+
+    neovim = import ./programs/neovim.nix {
+      inherit pkgs;
+    };
+
+    ssh = {
+      enable = true;
+      enableDefaultConfig = false;
+      extraOptionOverrides = {
+        IdentityFile = user.bellroy.ssh.privateKeyPath;
+      };
+      matchBlocks = {
+        "*" = {
+          addKeysToAgent = "yes";
+          userKnownHostsFile = "~/.ssh/known_hosts";
+        };
+        "*.trikeapps.com" = {
+          inherit (user.bellroy.ssh) user;
+        };
+      };
+      package = pkgs.openssh.override { withKerberos = true; };
+    };
+
+    starship = import ./programs/starship.nix;
+
+    # File manager
+    yazi = import ./programs/yazi.nix;
+
+    zellij = import ./programs/zellij.nix;
+  };
+
+  services = {
+    ssh-agent.enable = true;
+  };
+
+  xdg.configFile = {
+    "git/allowedSigners".text = "${user.bellroy.email} ${user.bellroy.publicKeyWithoutEmail}";
+
+    "helix/themes/moonfly.toml".source = pkgs.fetchurl {
+      url = "https://gist.githubusercontent.com/ohri-anurag/2a567f281e023b6a31dbae0e2f018bbe/raw/255dd252fc4cc9aa7031177e3601a48e48bd81bc/moonfly.toml";
+      sha256 = "sha256-6xy5P2ii20xyfNYp2R9mLR4es8AVgt4FTLoAW63CKNw=";
+    };
+
+    "zellij/themes/moonfly.kdl".source = pkgs.fetchurl {
+      url = "https://raw.githubusercontent.com/bluz71/vim-moonfly-colors/refs/heads/master/extras/moonfly-zellij.kdl";
+      sha256 = "sha256-dWM2ET8wnfmOlakctkTkL74uGc6Fyes5Ta4aT7J2xM4=";
+    };
+  };
+}
