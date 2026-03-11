@@ -85,6 +85,16 @@
     # Let Home Manager install and manage itself.
     home-manager.enable = true;
 
+    jujutsu = {
+      enable = true;
+      settings = {
+        user = {
+          email = user.bellroy.email;
+          name = user.name;
+        };
+      };
+    };
+
     lazygit = {
       enable = true;
       settings = {
