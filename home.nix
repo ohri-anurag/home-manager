@@ -21,17 +21,23 @@
 
     packages =
       let
-        # Import package versions from JSON
-        versions = builtins.fromJSON (builtins.readFile ./package-versions.json);
-
-        # Setup for claude code
-        claude-code = pkgs.claude-code.overrideAttrs (_: rec {
-          version = versions.packages.claude-code.version;
-          src = pkgs.fetchzip {
-            url = "https://registry.npmjs.org/@anthropic-ai/claude-code/-/claude-code-${version}.tgz";
-            hash = versions.packages.claude-code.hash;
+        claude-code = pkgs.stdenv.mkDerivation rec {
+          name = "claude-code";
+          version = "2.1.72";
+          src = builtins.fetchurl {
+            url = "https://storage.googleapis.com/claude-code-dist-86c565f3-f756-42ad-8dfa-d59b1c096819/claude-code-releases/${version}/linux-x64/claude";
+            sha256 = "sha256:13c7xn8497v68flwrc9pjsmisqjkhyrb7fliick7vgxqzgkkhlxm";
           };
-        });
+
+          phases = [ "installPhase" ];
+
+          installPhase = ''
+            mkdir -p $out/bin
+            cp $src $out/bin/claude
+            chmod +x $out/bin/claude
+          '';
+        };
+
       in
       with pkgs;
       [
