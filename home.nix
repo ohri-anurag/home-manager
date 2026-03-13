@@ -23,7 +23,7 @@
       let
         claude-code = pkgs.stdenv.mkDerivation rec {
           name = "claude-code";
-          version = "2.1.72";
+          version = "2.1.74";
           src = builtins.fetchurl {
             url = "https://storage.googleapis.com/claude-code-dist-86c565f3-f756-42ad-8dfa-d59b1c096819/claude-code-releases/${version}/linux-x64/claude";
             sha256 = "sha256:13c7xn8497v68flwrc9pjsmisqjkhyrb7fliick7vgxqzgkkhlxm";
@@ -37,7 +37,6 @@
             chmod +x $out/bin/claude
           '';
         };
-
       in
       with pkgs;
       [
