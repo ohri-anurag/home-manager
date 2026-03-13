@@ -98,6 +98,12 @@
           email = user.bellroy.email;
           name = user.name;
         };
+        signing = {
+          behavior = "own";
+          backend = "ssh";
+          backends.ssh.allowed-signers = "${user.homeDirectory}/.config/git/allowedSigners";
+          key = "${user.homeDirectory}/.ssh/id_ed25519.pub";
+        };
       };
     };
 
