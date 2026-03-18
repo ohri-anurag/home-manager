@@ -57,6 +57,7 @@
         nil # Nix language server
         nix-output-monitor # Better nix build
         nixfmt-rfc-style # Nix formatter
+        nushell # New way to shell
         openssl # Crypto tools
         ouch # Zipping/Unzipping CLI tool
         parallel # CLI tool for parallelisation
