@@ -104,6 +104,7 @@
           backends.ssh.allowed-signers = "${user.homeDirectory}/.config/git/allowedSigners";
           key = "${user.homeDirectory}/.ssh/id_ed25519.pub";
         };
+        ui.movement.edit = true;
       };
     };
 
