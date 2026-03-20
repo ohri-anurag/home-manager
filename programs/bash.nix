@@ -83,7 +83,9 @@
     build() {
       cd ${user.homeDirectory}/bellroy/haskell/
       echo -e "optimization: False\nprogram-options\n  ghc-options: -Wall" > cabal.project.local
-      jj diff --name-only -- 'glob:**/*.hs' |
+      jj diff -s -- 'glob:**/*.hs' |
+        rg -v "D *" |
+        cut -d' ' -f2 |
         xargs hlint -h .hlint.yaml &&
         cabal --builddir=dist-newstyle build $1 && cabal --builddir=dist-newstyle test $1
     }
@@ -91,7 +93,9 @@
     cover() {
       cd ${user.homeDirectory}/bellroy/haskell/
       echo -e "optimization: False\nprogram-options\n  ghc-options: -Wall\npackage *\n  coverage: True\n  library-coverage: True\n\npackage order-processing\n  coverage: False\n  library-coverage: False" > cabal.project.local
-      jj diff --name-only -- 'glob:**/*.hs' |
+      jj diff -s -- 'glob:**/*.hs' |
+        rg -v "D *" |
+        cut -d' ' -f2 |
         xargs hlint -h .hlint.yaml &&
         cabal --builddir=dist-newstyle-cover build $1 && cabal --builddir=dist-newstyle-cover test $1
     }
