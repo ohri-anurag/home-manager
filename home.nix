@@ -45,6 +45,7 @@
         btop # System monitor
         claude-code
         curlie # CLI HTTP client
+        dbeaver-bin # DB GUI Client
         difftastic # Semantic diff tool
         fd # Faster find
         gh # GitHub CLI
