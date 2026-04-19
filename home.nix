@@ -120,6 +120,7 @@
       };
     };
 
+    lazysql.enable = true;
     mergiraf.enable = true;
 
     neovim = import ./programs/neovim.nix {
