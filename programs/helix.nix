@@ -47,6 +47,14 @@
       {
         name = "ruby";
         language-servers = [ "sorbet" ];
+        formatter = {
+          command = "stree";
+          args = [
+            "format"
+            "--plugins=plugin/single_quotes"
+            "--print-width=100"
+          ];
+        };
         auto-format = true;
       }
       {
