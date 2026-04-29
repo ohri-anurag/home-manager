@@ -26,6 +26,10 @@
           feature_snippets = false;
         };
       };
+      pls = {
+        command = "postgres-language-server";
+        args = [ "lsp-proxy" ];
+      };
       sorbet = {
         command = "bash";
         args = [
@@ -56,6 +60,10 @@
           ];
         };
         auto-format = true;
+      }
+      {
+        name = "sql";
+        language-servers = [ "pls" ];
       }
       {
         name = "haskell";

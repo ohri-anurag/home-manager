@@ -64,6 +64,7 @@
         parallel # CLI tool for parallelisation
         ripgrep # Faster grep
         stylua # Lua formatter
+        postgres-language-server # Postgresql LSP
         wl-clipboard # Clipboard for NeoVim
       ];
   };
