@@ -30,7 +30,7 @@
         "bind \"Alt p\"" = {
           NewPane = [ ];
         };
-        "bind \"Alt q\"" = {
+        "bind \"Alt x\"" = {
           Quit = [ ];
         };
       };
