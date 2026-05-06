@@ -13,6 +13,9 @@
         smart-case = false;
       };
     };
+    keys.normal = {
+      "F2" = ":! wl-copy %{buffer_name}";
+    };
   };
   languages = {
     language-server = {
