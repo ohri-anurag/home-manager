@@ -1,6 +1,7 @@
 { pkgs }:
 {
   enable = true;
+  defaultEditor = true;
   extraPackages = [ pkgs.simple-completion-language-server ];
   settings = {
     theme = "moonfly";

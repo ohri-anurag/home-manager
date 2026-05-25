@@ -1,7 +1,6 @@
 { pkgs }:
 {
   enable = true;
-  defaultEditor = true;
   extraLuaConfig = ''
     -- LSP keybindings
     vim.keymap.set("n", "<F12>", "<cmd>lua vim.lsp.buf.definition()<CR>")
