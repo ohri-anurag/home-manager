@@ -101,6 +101,7 @@
     }
 
     debug() {
+      cd ${user.homeDirectory}/bellroy/haskell/
       cabalPath=$(cd ${user.homeDirectory}/bellroy/haskell/ |
         echo -e "optimization: False\nprogram-options\n  ghc-options: -Wwarn -Wunused-top-binds -Werror=unused-top-binds" > cabal.project.local |
         fd .*.cabal\$ . |
@@ -119,6 +120,7 @@
     }
 
     repl() {
+      cd ${user.homeDirectory}/bellroy/haskell/
       cabalPath=$(cd ${user.homeDirectory}/bellroy/haskell/ |
         echo -e "optimization: False\nprogram-options\n  ghc-options: -Wwarn -Wunused-top-binds -Werror=unused-top-binds" > cabal.project.local |
         fd .*.cabal\$ . |
