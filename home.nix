@@ -41,6 +41,7 @@
       with pkgs;
       [
         awscli2 # AWS CLI
+        aws-sso-util # To make managing AWS SSO easier
         bat # Cat with wings
         btop # System monitor
         claude-code
