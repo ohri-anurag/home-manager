@@ -48,6 +48,7 @@
         curlie # CLI HTTP client
         dbeaver-bin # DB GUI Client
         difftastic # Semantic diff tool
+        docker-language-server # Docker LSP
         fd # Faster find
         gh # GitHub CLI
         glow # CLI markdown renderer
