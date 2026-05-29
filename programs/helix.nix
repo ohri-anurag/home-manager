@@ -34,6 +34,13 @@
         command = "postgres-language-server";
         args = [ "lsp-proxy" ];
       };
+      dls = {
+        command = "docker-language-server";
+        args = [
+          "start"
+          "--stdio"
+        ];
+      };
       sorbet = {
         command = "bash";
         args = [
@@ -68,6 +75,10 @@
       {
         name = "sql";
         language-servers = [ "pls" ];
+      }
+      {
+        name = "dockerfile";
+        language-servers = [ "dls" ];
       }
       {
         name = "haskell";
