@@ -24,6 +24,10 @@
     grs = "git rebase --skip";
     gra = "git rebase --abort";
     gst = "git status";
+    jd = "jj diff";
+    jst = "jj st";
+    jp = "jj git push";
+    jc = "jj commit -m";
     ll = "ls -al";
     m = "glow -p -w 0 -s dracula";
     v = "nvim";
