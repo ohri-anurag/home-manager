@@ -37,6 +37,20 @@
             chmod +x $out/bin/claude
           '';
         };
+        todo = pkgs.stdenv.mkDerivation rec {
+          name = "todo";
+          version = "0.1.0.0";
+          src = pkgs.fetchurl {
+            url = "https://github.com/ohri-anurag/todo-cli/releases/download/v${version}/todo";
+            sha256 = "sha256-yDfm1sbdV18qpVb9TwNB259t62bahsoTgrCnYUMIzjQ=";
+          };
+          phases = [ "installPhase" ];
+          installPhase = ''
+            mkdir -p $out/bin
+            cp $src $out/bin/todo
+            chmod +x $out/bin/todo
+          '';
+        };
       in
       with pkgs;
       [
@@ -66,6 +80,7 @@
         parallel # CLI tool for parallelisation
         ripgrep # Faster grep
         stylua # Lua formatter
+        todo # todo cli
         postgres-language-server # Postgresql LSP
         wl-clipboard # Clipboard for NeoVim
       ];
