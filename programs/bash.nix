@@ -47,25 +47,6 @@
       nix store gc -vvvvvv
     }
 
-    TASKS_FILE=${user.homeDirectory}/.taskfile
-    function task() {
-      read -p "What needs doing? " desc
-      read -p "When is it due? " due
-
-      duedate=$(date -u +%Y-%m-%dT%H:%M:%SZ -d "$due" | tr -d '\n')
-
-      echo "{ \"due\": \"$duedate\", \"description\": \"$desc\" }" >> ${user.homeDirectory}/.taskfile
-      sort -o ${user.homeDirectory}/.taskfile ${user.homeDirectory}/.taskfile
-    }
-
-    function tasks() {
-      jq -r '(input_line_number | tostring) + " | " + (.due | strptime("%Y-%m-%dT%H:%M:%SZ") | strftime("%d %b %Y")) + " | " + .description' $TASKS_FILE
-    }
-
-    function finish() {
-      sed -i -e $1d $TASKS_FILE
-    }
-
     rootDir="${user.bellroy.rootDir}/haskell"
 
     h() {

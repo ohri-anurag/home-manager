@@ -23,10 +23,11 @@
       let
         claude-code = pkgs.stdenv.mkDerivation rec {
           name = "claude-code";
-          version = "2.1.126";
+          version = "2.1.159";
           src = builtins.fetchurl {
+            # URL for checking latest version: https://storage.googleapis.com/claude-code-dist-86c565f3-f756-42ad-8dfa-d59b1c096819/claude-code-releases/latest
             url = "https://storage.googleapis.com/claude-code-dist-86c565f3-f756-42ad-8dfa-d59b1c096819/claude-code-releases/${version}/linux-x64/claude";
-            sha256 = "sha256:13n1r99hbfm2j8wxqdbdkwyrgipg6ijgq6acbbv1y5kms9l6ksgw";
+            sha256 = "sha256:0h9mgrgxjfr651bsrcjna8c336vyiijlg6d2f69w0gpd02pnq4p2";
           };
 
           phases = [ "installPhase" ];
@@ -39,10 +40,10 @@
         };
         todo = pkgs.stdenv.mkDerivation rec {
           name = "todo";
-          version = "0.1.1.1";
-          src = pkgs.fetchurl {
+          version = "0.1.2.0";
+          src = builtins.fetchurl {
             url = "https://github.com/ohri-anurag/todo-cli/releases/download/v${version}/todo";
-            sha256 = "sha256-OYFc/rZEDzA8PYNlGaj1cozvCVqrL0jELKA+po5Vqao=";
+            sha256 = "sha256-d4nVRIlxSK64Ge5wKzWIY2+p1vsWxKGlEkV/vEVkZGM=";
           };
           phases = [ "installPhase" ];
           installPhase = ''
