@@ -8,7 +8,7 @@
     cursor = {
       blink = "yes";
     };
-    colors = {
+    colors-dark = {
       foreground = "b2b2b2";
       background = "080808";
       selection-foreground = "080808";
