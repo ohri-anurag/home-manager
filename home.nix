@@ -141,6 +141,7 @@
           key = "${user.homeDirectory}/.ssh/id_ed25519.pub";
         };
         ui = {
+          default-command = "log";
           movement.edit = true;
           diff-formatter = [
             "difft"
