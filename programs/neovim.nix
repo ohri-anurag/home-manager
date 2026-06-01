@@ -1,7 +1,7 @@
 { pkgs }:
 {
   enable = true;
-  extraLuaConfig = ''
+  initLua = ''
     -- LSP keybindings
     vim.keymap.set("n", "<F12>", "<cmd>lua vim.lsp.buf.definition()<CR>")
     vim.keymap.set("n", "<C-t>", "<cmd>lua vim.lsp.buf.references()<CR>")

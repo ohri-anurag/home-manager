@@ -17,7 +17,7 @@
     # You can update Home Manager without changing this value. See
     # the Home Manager release notes for a list of state version
     # changes in each release.
-    stateVersion = "25.05";
+    stateVersion = "26.05";
 
     packages =
       let
@@ -66,18 +66,16 @@
         fd # Faster find
         gh # GitHub CLI
         glow # CLI markdown renderer
-        haskellPackages.hasktags # Generate CTAGS for Haskell
         jq # CLI JSON processor
         libxml2 # XML Tools
         lynx # Display HTML in terminal
         nerd-fonts.hasklug # Hasklug Nerd Font
         nil # Nix language server
         nix-output-monitor # Better nix build
-        nixfmt-rfc-style # Nix formatter
+        nixfmt # Nix formatter
         nushell # New way to shell
         openssl # Crypto tools
         ouch # Zipping/Unzipping CLI tool
-        parallel # CLI tool for parallelisation
         ripgrep # Faster grep
         stylua # Lua formatter
         todo # todo cli
@@ -159,7 +157,7 @@
       extraOptionOverrides = {
         IdentityFile = user.bellroy.ssh.privateKeyPath;
       };
-      matchBlocks = {
+      settings = {
         "*" = {
           addKeysToAgent = "yes";
           userKnownHostsFile = "~/.ssh/known_hosts";
