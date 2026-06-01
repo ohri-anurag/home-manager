@@ -39,10 +39,10 @@
         };
         todo = pkgs.stdenv.mkDerivation rec {
           name = "todo";
-          version = "0.1.0.0";
+          version = "0.1.1.1";
           src = pkgs.fetchurl {
             url = "https://github.com/ohri-anurag/todo-cli/releases/download/v${version}/todo";
-            sha256 = "sha256-yDfm1sbdV18qpVb9TwNB259t62bahsoTgrCnYUMIzjQ=";
+            sha256 = "sha256-OYFc/rZEDzA8PYNlGaj1cozvCVqrL0jELKA+po5Vqao=";
           };
           phases = [ "installPhase" ];
           installPhase = ''
