@@ -38,6 +38,23 @@
             chmod +x $out/bin/claude
           '';
         };
+        kilocode-cli = pkgs.stdenv.mkDerivation rec {
+          name = "kilocode-cli";
+          version = "7.3.16";
+          src = builtins.fetchurl {
+            # URL for checking latest version: https://storage.googleapis.com/claude-code-dist-86c565f3-f756-42ad-8dfa-d59b1c096819/claude-code-releases/latest
+            url = "https://github.com/Kilo-Org/kilocode/releases/download/v${version}/kilo-linux-x64.tar.gz";
+            sha256 = "sha256:02mh4p73bzwc0q1drvikl78japxq30lhnry9msp71m4vaydxyz62";
+          };
+
+          phases = [ "installPhase" ];
+
+          installPhase = ''
+            mkdir -p $out/bin
+            tar -xf $src -C $out/bin
+            chmod +x $out/bin/kilo
+          '';
+        };
         todo = pkgs.stdenv.mkDerivation rec {
           name = "todo";
           version = "0.1.2.0";
@@ -68,6 +85,7 @@
         gh # GitHub CLI
         glow # CLI markdown renderer
         jq # CLI JSON processor
+        kilocode-cli
         libxml2 # XML Tools
         lynx # Display HTML in terminal
         nerd-fonts.hasklug # Hasklug Nerd Font
