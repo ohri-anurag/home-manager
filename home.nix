@@ -1,6 +1,7 @@
 {
   pkgs,
   user,
+  lib,
   ...
 }:
 {
@@ -59,29 +60,27 @@
           name = "todo";
           version = "0.1.2.2";
           src = builtins.fetchurl {
-            url = "https://github.com/ohri-anurag/todo-cli/releases/download/v${version}/todo.tar.gz";
-            sha256 = "sha256:0a3mf66gj2zwp18sdnsqsvvpnrrgcyqk7jqwligpvrx5ha3knkjv";
+            url = "https://github.com/ohri-anurag/todo-cli/releases/download/v${version}/todo";
+            sha256 = "sha256:0fzfi3h1zsnl69188wfywsx5m45mcpaks3v1szi0xrszpznjsq0g";
           };
-          nativeBuildInputs = with pkgs; [
-            # makeWrapper
-            autoPatchelfHook
-            installShellFiles
-          ];
+          nativeBuildInputs = [ pkgs.autoPatchelfHook ];
           buildInputs = with pkgs; [
             gmp
             postgresql.lib
             glibc
           ];
-          phases = [ "installPhase" ];
+
+          phases = [
+            "installPhase"
+            "fixupPhase"
+          ];
           installPhase = ''
             runHook preInstall
             mkdir -p $out/bin
-            tar -xzf $src -C $out/bin/
+            cp $src $out/bin/todo
             chmod +x $out/bin/todo
-            patchelf --set-rpath ${pkgs.glibc}/lib:${pkgs.postgresql.lib}/lib:${pkgs.gmp}/lib $out/bin/todo
             runHook postInstall
           '';
-          postInstall = "installShellCompletion --bash < $out/bin/todo_completion.sh";
         };
       in
       with pkgs;
