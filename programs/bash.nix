@@ -140,5 +140,6 @@
 
     # Register buildToolsComplete to provide completion for the following commands
     complete -F buildToolsComplete build cover debug repl
+    source <(todo --bash-completion-script `which todo`)
   '';
 }
