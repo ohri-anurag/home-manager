@@ -1,7 +1,6 @@
 {
   pkgs,
   user,
-  lib,
   ...
 }:
 {
@@ -58,10 +57,10 @@
         };
         todo = pkgs.stdenv.mkDerivation rec {
           name = "todo";
-          version = "0.1.2.2";
+          version = "0.1.3.1";
           src = builtins.fetchurl {
             url = "https://github.com/ohri-anurag/todo-cli/releases/download/v${version}/todo";
-            sha256 = "sha256:0fzfi3h1zsnl69188wfywsx5m45mcpaks3v1szi0xrszpznjsq0g";
+            sha256 = "sha256:10y703agi0246z28sa6rgcl2bjlnncvj9sn5s9m0wgnmxzbdhq9d";
           };
           nativeBuildInputs = [ pkgs.autoPatchelfHook ];
           buildInputs = with pkgs; [
