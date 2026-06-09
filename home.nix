@@ -57,28 +57,17 @@
         };
         todo = pkgs.stdenv.mkDerivation rec {
           name = "todo";
-          version = "0.1.3.1";
+          version = "0.1.3.2";
           src = builtins.fetchurl {
             url = "https://github.com/ohri-anurag/todo-cli/releases/download/v${version}/todo";
-            sha256 = "sha256:10y703agi0246z28sa6rgcl2bjlnncvj9sn5s9m0wgnmxzbdhq9d";
+            sha256 = "sha256:10cldzq6wlz5dyzyf7nqa29x6jvmckrgi5v5v0q6s5087ch7sng2";
           };
-          nativeBuildInputs = [ pkgs.autoPatchelfHook ];
-          buildInputs = with pkgs; [
-            gmp
-            postgresql.lib
-            glibc
-          ];
 
-          phases = [
-            "installPhase"
-            "fixupPhase"
-          ];
+          phases = [ "installPhase" ];
           installPhase = ''
-            runHook preInstall
             mkdir -p $out/bin
             cp $src $out/bin/todo
             chmod +x $out/bin/todo
-            runHook postInstall
           '';
         };
       in
