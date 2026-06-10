@@ -90,7 +90,6 @@
           ];
         };
         language-servers = [
-          "hls"
           "scls"
         ];
         auto-format = true;
