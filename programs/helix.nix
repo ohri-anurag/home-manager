@@ -60,6 +60,17 @@
         formatter.command = "rustfmt";
       }
       {
+        name = "typescript";
+        auto-format = true;
+        formatter = {
+          command = "prettier";
+          args = [
+            "--parser"
+            "typescript"
+          ];
+        };
+      }
+      {
         name = "ruby";
         language-servers = [ "sorbet" ];
         formatter = {
@@ -98,7 +109,7 @@
         name = "cabal";
         auto-format = true;
         formatter = {
-          command = "cabal-fmt";
+          command = "cabal-gild";
         };
       }
       {
