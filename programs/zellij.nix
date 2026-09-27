@@ -2,6 +2,7 @@
   enable = true;
   settings = {
     show_startup_tips = false;
+    scroll_mode_sync = false;
     pane_frames = false;
     ui = {
       pane_frames = {
