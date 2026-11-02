@@ -20,6 +20,13 @@
   };
   languages = {
     language-server = {
+      sky-lsp = {
+        command = "sky";
+        args = [
+          "lsp"
+          "--stdio"
+        ];
+      };
       hls = {
         command = "haskell-language-server";
       };
@@ -49,7 +56,38 @@
         ];
       };
     };
+    grammar = [
+      {
+        name = "sky";
+        source = {
+          git = "https://github.com/anzellai/tree-sitter-sky";
+          rev = "dbe7d4211ee34711fa001e7d5275aa1ce365002d";
+        };
+      }
+    ];
     language = [
+      {
+        name = "sky";
+        scope = "source.sky";
+        file-types = [
+          "sky"
+          "skyi"
+        ];
+        auto-format = true;
+        formatter = {
+          command = "sky";
+          args = [
+            "fmt"
+            "-"
+          ];
+        };
+        language-servers = [ "sky-lsp" ];
+        comment-token = "--";
+        indent = {
+          tab-width = 4;
+          unit = " ";
+        };
+      }
       {
         name = "nix";
         auto-format = true;
