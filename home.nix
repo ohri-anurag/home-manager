@@ -23,11 +23,11 @@
       let
         claude-code = pkgs.stdenv.mkDerivation rec {
           name = "claude-code";
-          version = "2.1.287";
+          version = "2.1.316";
           src = builtins.fetchurl {
             # URL for checking latest version: https://storage.googleapis.com/claude-code-dist-86c565f3-f756-42ad-8dfa-d59b1c096819/claude-code-releases/latest
             url = "https://storage.googleapis.com/claude-code-dist-86c565f3-f756-42ad-8dfa-d59b1c096819/claude-code-releases/${version}/linux-x64/claude";
-            sha256 = "sha256:1w0q2xd0x9hnkkdmwvbrphigy23l4wjjqf8sd9wgbkq9a6d4h81r";
+            sha256 = "sha256:096qcx55kpar18hlc3mz529s5d0h289bdjzvdl8z5hzy000cf4zx";
           };
 
           phases = [ "installPhase" ];
