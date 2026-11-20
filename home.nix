@@ -1,7 +1,6 @@
 {
   pkgs,
   user,
-  claude-desktop,
   ...
 }:
 {
@@ -79,7 +78,6 @@
         bat # Cat with wings
         btop # System monitor
         claude-code
-        claude-desktop # Unofficial Linux build
         curlie # CLI HTTP client
         dbeaver-bin # DB GUI Client
         difftastic # Semantic diff tool

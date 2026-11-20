@@ -9,9 +9,6 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     flake-utils.url = "github:numtide/flake-utils";
-    claude-desktop = {
-      url = "github:aaddrick/claude-desktop-debian";
-    };
   };
 
   outputs =
@@ -19,7 +16,6 @@
       nixpkgs,
       home-manager,
       flake-utils,
-      claude-desktop,
       ...
     }:
     flake-utils.lib.eachDefaultSystem (
@@ -43,7 +39,6 @@
           # to pass through arguments to home.nix
           extraSpecialArgs = {
             inherit user;
-            claude-desktop = claude-desktop.packages.${system}.claude-desktop-fhs;
           };
         };
       }
