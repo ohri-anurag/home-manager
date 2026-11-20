@@ -1,6 +1,7 @@
 {
   pkgs,
   user,
+  claude-desktop,
   ...
 }:
 {
@@ -23,11 +24,11 @@
       let
         claude-code = pkgs.stdenv.mkDerivation rec {
           name = "claude-code";
-          version = "2.1.316";
+          version = "2.1.329";
           src = builtins.fetchurl {
             # URL for checking latest version: https://storage.googleapis.com/claude-code-dist-86c565f3-f756-42ad-8dfa-d59b1c096819/claude-code-releases/latest
             url = "https://storage.googleapis.com/claude-code-dist-86c565f3-f756-42ad-8dfa-d59b1c096819/claude-code-releases/${version}/linux-x64/claude";
-            sha256 = "sha256:096qcx55kpar18hlc3mz529s5d0h289bdjzvdl8z5hzy000cf4zx";
+            sha256 = "sha256:0vcd6zvaznbsdl51j70556i5y75pmw0hj4zkr5fvzcgc59775qih";
           };
 
           phases = [ "installPhase" ];
@@ -78,6 +79,7 @@
         bat # Cat with wings
         btop # System monitor
         claude-code
+        claude-desktop # Unofficial Linux build
         curlie # CLI HTTP client
         dbeaver-bin # DB GUI Client
         difftastic # Semantic diff tool
